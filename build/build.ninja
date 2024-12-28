@@ -41,13 +41,88 @@ include CMakeFiles/rules.ninja
 
 cmake_ninja_workdir = C$:/Users/Àðò¸ì/Desktop/task_tracker/build/
 # =============================================================================
+# Object build statements for STATIC_LIBRARY target helper
+
+
+#############################################
+# Order-only phony target for helper
+
+build cmake_object_order_depends_target_helper: phony || .
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target helper
+
+
+#############################################
+# Link the static library libhelper.a
+
+build libhelper.a: CXX_STATIC_LIBRARY_LINKER__helper_Release
+  LANGUAGE_COMPILE_FLAGS = -O3 -DNDEBUG
+  OBJECT_DIR = CMakeFiles\helper.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = libhelper.a
+  TARGET_PDB = helper.a.dbg
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target task
+
+
+#############################################
+# Order-only phony target for task
+
+build cmake_object_order_depends_target_task: phony || .
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target task
+
+
+#############################################
+# Link the static library libtask.a
+
+build libtask.a: CXX_STATIC_LIBRARY_LINKER__task_Release
+  LANGUAGE_COMPILE_FLAGS = -O3 -DNDEBUG
+  OBJECT_DIR = CMakeFiles\task.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = libtask.a
+  TARGET_PDB = task.a.dbg
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target save_load
+
+
+#############################################
+# Order-only phony target for save_load
+
+build cmake_object_order_depends_target_save_load: phony || .
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target save_load
+
+
+#############################################
+# Link the static library libsave_load.a
+
+build libsave_load.a: CXX_STATIC_LIBRARY_LINKER__save_load_Release
+  LANGUAGE_COMPILE_FLAGS = -O3 -DNDEBUG
+  OBJECT_DIR = CMakeFiles\save_load.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = libsave_load.a
+  TARGET_PDB = save_load.a.dbg
+
+# =============================================================================
 # Object build statements for EXECUTABLE target task_tracker
 
 
 #############################################
 # Order-only phony target for task_tracker
 
-build cmake_object_order_depends_target_task_tracker: phony || .
+build cmake_object_order_depends_target_task_tracker: phony || cmake_object_order_depends_target_helper cmake_object_order_depends_target_task
 
 build CMakeFiles/task_tracker.dir/main.cpp.obj: CXX_COMPILER__task_tracker_unscanned_Release C$:/Users/Àðò¸ì/Desktop/task_tracker/main.cpp || cmake_object_order_depends_target_task_tracker
   DEP_FILE = CMakeFiles\task_tracker.dir\main.cpp.obj.d
@@ -64,9 +139,9 @@ build CMakeFiles/task_tracker.dir/main.cpp.obj: CXX_COMPILER__task_tracker_unsca
 #############################################
 # Link the executable task_tracker.exe
 
-build task_tracker.exe: CXX_EXECUTABLE_LINKER__task_tracker_Release CMakeFiles/task_tracker.dir/main.cpp.obj
+build task_tracker.exe: CXX_EXECUTABLE_LINKER__task_tracker_Release CMakeFiles/task_tracker.dir/main.cpp.obj | libhelper.a libtask.a || libhelper.a libtask.a
   FLAGS = -O3 -DNDEBUG
-  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  LINK_LIBRARIES = libhelper.a  libtask.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\task_tracker.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
@@ -130,6 +205,12 @@ build include/nlohmann_json/rebuild_cache: phony include/nlohmann_json/CMakeFile
 # =============================================================================
 # Target aliases.
 
+build helper: phony libhelper.a
+
+build save_load: phony libsave_load.a
+
+build task: phony libtask.a
+
 build task_tracker: phony task_tracker.exe
 
 # =============================================================================
@@ -140,7 +221,7 @@ build task_tracker: phony task_tracker.exe
 #############################################
 # Folder: C:/Users/Àðò¸ì/Desktop/task_tracker/build
 
-build all: phony task_tracker.exe include/nlohmann_json/all
+build all: phony libhelper.a libtask.a libsave_load.a task_tracker.exe include/nlohmann_json/all
 
 # =============================================================================
 

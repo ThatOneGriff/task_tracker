@@ -1,3 +1,6 @@
+C:/Users/Артём/Desktop/task_tracker/build/CMakeFiles/helper.dir
+C:/Users/Артём/Desktop/task_tracker/build/CMakeFiles/task.dir
+C:/Users/Артём/Desktop/task_tracker/build/CMakeFiles/save_load.dir
 C:/Users/Артём/Desktop/task_tracker/build/CMakeFiles/task_tracker.dir
 C:/Users/Артём/Desktop/task_tracker/build/CMakeFiles/edit_cache.dir
 C:/Users/Артём/Desktop/task_tracker/build/CMakeFiles/rebuild_cache.dir

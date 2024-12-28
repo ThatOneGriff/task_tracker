@@ -62,6 +62,17 @@
         "typeinfo": "cpp",
         "valarray": "cpp",
         "variant": "cpp",
-        "format": "cpp"
+        "format": "cpp",
+        "bitset": "cpp",
+        "condition_variable": "cpp",
+        "csignal": "cpp",
+        "list": "cpp",
+        "unordered_set": "cpp",
+        "regex": "cpp",
+        "fstream": "cpp",
+        "mutex": "cpp",
+        "stop_token": "cpp",
+        "thread": "cpp",
+        "semaphore": "cpp"
     }
 }

@@ -8,7 +8,15 @@ project(task_tracker VERSION 1.0 LANGUAGES CXX)
 set(JSON_Install OFF CACHE INTERNAL "")
 add_subdirectory(include/nlohmann_json)
 
+# headers
+add_library(helper STATIC helper.hpp)
+set_property(TARGET helper PROPERTY LINKER_LANGUAGE CXX)
+add_library(task STATIC task.hpp)
+set_property(TARGET task PROPERTY LINKER_LANGUAGE CXX)
+add_library(save_load STATIC save_load.hpp)
+set_property(TARGET save_load PROPERTY LINKER_LANGUAGE CXX)
+
 
 add_executable(task_tracker main.cpp)
-target_link_libraries(task_tracker PRIVATE nlohmann_json::nlohmann_json)
+target_link_libraries(task_tracker PRIVATE nlohmann_json::nlohmann_json helper task)
 set_property(TARGET task_tracker PROPERTY CXX_STANDARD 17)

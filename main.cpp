@@ -1,20 +1,34 @@
 #include <iostream>
-#include <fstream>
-#include <nlohmann/json.hpp>
-using json = nlohmann::json;
+#include <string>
+#include <vector>
+
+#include "helper.hpp"
+#include "save_load.hpp"
 
 
 
 int main()
 {
-    json j = {
-        {"pi", 3.1415},
-        {"1", true}
-    };
+    std::vector<Task> tasks = load();
+    std::string command, args;
 
-    std::ofstream o("test.json");
-    o << j << std::endl;
-    o.close();
+    while(true)
+    {
+        std::cin >> command;
+        
+        if (command == "add")
+        {
+            unsigned int id;
+            std::string name, desc;
+            std::cin >> id >> name >> desc;
+            
+            name = name.substr(0, 20);
+            desc = desc.substr(0, 50);
+            Task new_task(id, name, get_cur_date_time(), desc);
+        }
 
-    return 0;
+        std::cin.clear();
+    }
+
+return 0;
 }
