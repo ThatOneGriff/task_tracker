@@ -18,4 +18,15 @@ std::string get_cur_date_time()
 }
 
 
+bool is_num(const std::string& str)
+{
+    for (const char& c: str)
+    {
+        if (c < '0' || c > '9')
+            return false;
+    }
+    return true;
+}
+
+
 #endif

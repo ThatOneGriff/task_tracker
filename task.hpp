@@ -16,11 +16,12 @@ public:
 
     const unsigned int id;
     const std::string name;
+    std::string status = "todo";
 
 
     // console-created task
-    Task(const unsigned int _id, const std::string& _name, const std::string& _created_at, const std::string& _desc)
-    : id(_id), name(_name), desc(_desc), created_at()
+    Task(const unsigned int _id, const std::string& _name, const std::string& _desc, const std::string& _created_at)
+    : id(_id), name(_name), desc(_desc), created_at(_created_at)
     {
         std::cout << "Task created successfully [ID: " << id << "].";
     }
@@ -47,8 +48,7 @@ public:
 
     void output()
     {
-        std::cout << "=== "             <<   
-        name    << "\n\n"
+        std::cout << "=== "             <<   name    << " [ID: " << id << "]\n\n"
                   <<                         desc    << '\n'
                   << " - Status: "     <<   status   << '\n'
                   << " - Created at: " << created_at << '\n'
@@ -56,16 +56,16 @@ public:
     }
 
 
-    void update_desc(const std::string& new_desc)
-    {
-        desc = new_desc;
-    }
-
-
     void update_status(const std::string& new_status)
     {
         if (task_statuses.find(new_status) != task_statuses.end())
+        {
             status = new_status;
+            updated_at = get_cur_date_time();
+            std::cout << "Status of task '" << name << "' successfully updated!";
+        }
+        else
+            std::cout << "Invalid status!";
     }
 
 
@@ -74,7 +74,6 @@ private:
     std::string desc;
     const std::string created_at;
     std::string updated_at = "-";
-    std::string status = "todo";
 };
 
 
