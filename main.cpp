@@ -8,22 +8,30 @@
 unsigned int max_id;
 
 
+/* TODO
+- changes_happened thing
+- incorrect text spacing
+- "task not found" while deleting
+- list optimizing
+- guide */
+
+
 
 int main()
 {
     std::vector<Task> tasks;
     max_id = load(tasks);
     std::string command, args;
-    bool changes_happened;
+    bool changes_happened = false;;
 
     while(true)
     {
-        changes_happened = true;
         std::cin >> command;
 
 
         if (command == "add")
         {
+            changes_happened = true;
             std::string name, desc;
             std::cin >> name;
             getline(std::cin, desc);
@@ -37,6 +45,7 @@ int main()
 
         else if (command == "update-status")
         {
+            changes_happened = true;
             std::string search_arg, new_status;
             std::cin >> search_arg >> new_status;
 
@@ -57,6 +66,7 @@ int main()
 
         else if (command == "delete")
         {
+            changes_happened = true;
             std::string search_arg;
             std::cin >> search_arg;
 
@@ -80,7 +90,6 @@ int main()
 
         else if (command == "list-all")
         {
-            changes_happened = false;
             for (int i = 0; i < tasks.size(); i++)
             {
                 if (tasks[i].status == "deleted")
@@ -93,7 +102,6 @@ int main()
 
         else if (command == "list-done")
         {
-            changes_happened = false;
             for (int i = 0; i < tasks.size(); i++)
             {
                 if (tasks[i].status == "done")
@@ -107,7 +115,6 @@ int main()
 
         else if (command == "list-in-progress")
         {
-            changes_happened = false;
             for (int i = 0; i < tasks.size(); i++)
             {
                 if (tasks[i].status == "in-progress")
@@ -121,7 +128,6 @@ int main()
 
         else if (command == "list-todo")
         {
-            changes_happened = false;
             for (int i = 0; i < tasks.size(); i++)
             {
                 if (tasks[i].status == "todo")
@@ -135,7 +141,10 @@ int main()
         std::cout << "\n";
         std::cin.clear();
         if (changes_happened)
+        {
             save(tasks);
+            changes_happened = false;
+        }
     }
 
 return 0;
