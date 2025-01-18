@@ -134,7 +134,8 @@ int main()
 
         std::cout << "\n";
         std::cin.clear();
-        save(tasks);
+        if (changes_happened)
+            save(tasks);
     }
 
 return 0;

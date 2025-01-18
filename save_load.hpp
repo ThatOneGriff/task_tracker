@@ -21,11 +21,10 @@ int load(std::vector<Task>& tasks)
     f.close();
 
     int max_id = 0;
-    for (const auto element: data)
+    for (const auto& element: data)
     {
-        std::cout << element << '\n';
-        //Task task(element["id"], element["name"], element["desc"], element["created_at"], element["updated_at"]);
-        //tasks.push_back(task);
+        Task task(element["id"], element["name"], element["desc"], element["created_at"], element["updated_at"]);
+        tasks.push_back(task);
     }
 
     return max_id;
