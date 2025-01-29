@@ -15,7 +15,7 @@
 # Rule for linking CXX static library.
 
 rule CXX_STATIC_LIBRARY_LINKER__helper_Release
-  command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\TDM-GCC-64\bin\ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\TDM-GCC-64\bin\ranlib.exe $TARGET_FILE && $POST_BUILD"
+  command = C:\WINDOWS\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\TDM-GCC-64\bin\ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\TDM-GCC-64\bin\ranlib.exe $TARGET_FILE && $POST_BUILD"
   description = Linking CXX static library $TARGET_FILE
   restat = $RESTAT
 
@@ -24,7 +24,7 @@ rule CXX_STATIC_LIBRARY_LINKER__helper_Release
 # Rule for linking CXX static library.
 
 rule CXX_STATIC_LIBRARY_LINKER__task_Release
-  command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\TDM-GCC-64\bin\ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\TDM-GCC-64\bin\ranlib.exe $TARGET_FILE && $POST_BUILD"
+  command = C:\WINDOWS\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\TDM-GCC-64\bin\ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\TDM-GCC-64\bin\ranlib.exe $TARGET_FILE && $POST_BUILD"
   description = Linking CXX static library $TARGET_FILE
   restat = $RESTAT
 
@@ -33,7 +33,7 @@ rule CXX_STATIC_LIBRARY_LINKER__task_Release
 # Rule for linking CXX static library.
 
 rule CXX_STATIC_LIBRARY_LINKER__save_load_Release
-  command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\TDM-GCC-64\bin\ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\TDM-GCC-64\bin\ranlib.exe $TARGET_FILE && $POST_BUILD"
+  command = C:\WINDOWS\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\TDM-GCC-64\bin\ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\TDM-GCC-64\bin\ranlib.exe $TARGET_FILE && $POST_BUILD"
   description = Linking CXX static library $TARGET_FILE
   restat = $RESTAT
 
@@ -52,7 +52,7 @@ rule CXX_COMPILER__task_tracker_unscanned_Release
 # Rule for linking CXX executable.
 
 rule CXX_EXECUTABLE_LINKER__task_tracker_Release
-  command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && C:\TDM-GCC-64\bin\c++.exe $FLAGS $LINK_FLAGS $in -o $TARGET_FILE -Wl,--out-implib,$TARGET_IMPLIB -Wl,--major-image-version,0,--minor-image-version,0 $LINK_PATH $LINK_LIBRARIES && $POST_BUILD"
+  command = C:\WINDOWS\system32\cmd.exe /C "$PRE_LINK && C:\TDM-GCC-64\bin\c++.exe $FLAGS $LINK_FLAGS $in -o $TARGET_FILE -Wl,--out-implib,$TARGET_IMPLIB -Wl,--major-image-version,0,--minor-image-version,0 $LINK_PATH $LINK_LIBRARIES && $POST_BUILD"
   description = Linking CXX executable $TARGET_FILE
   restat = $RESTAT
 

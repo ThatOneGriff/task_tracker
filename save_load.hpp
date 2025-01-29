@@ -27,6 +27,19 @@ int load(std::vector<Task>& tasks)
         tasks.push_back(task);
     }
 
+    switch (tasks.size())
+    {
+    case 0:
+        std::cout << "No tasks loaded.\n\n";
+        break;
+    case 1:
+        std::cout << "1 task loaded.\n\n";
+        break;
+    default:
+        std::cout << tasks.size() << " tasks loaded.\n\n";
+        break;
+    }
+
     return max_id;
 }
 
