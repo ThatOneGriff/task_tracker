@@ -7,9 +7,8 @@
 
 
 /* TODO
-- [!!!] Why would tasks need IDs instead of using their array index? (Would require fixing issue 3 first)
-- 'help' command
-- maybe get rid of "delete" status shitfuckery */
+- Standardize console argument variables
+- 'help' command */
 
 
 
@@ -17,7 +16,7 @@ int main()
 {
     std::cout << " === Task Tracker (type 'help' to list all commands) ===\n\n";
     std::vector<Task> tasks;
-    unsigned int max_id = load(tasks);
+    load(tasks);
 
     std::string command;
     bool changes_happened = false;
@@ -34,7 +33,7 @@ int main()
             
             name = name.substr(0, 20);
             desc = desc.substr(0, 50);
-            Task new_task(++max_id, name, desc, get_cur_date_time());
+            Task new_task(name, desc, get_cur_date_time());
             tasks.push_back(new_task);
             changes_happened = true;
         }
@@ -50,19 +49,14 @@ int main()
                 std::cout << "Invalid ID!";
                 continue;
             }
-
-            for (int i = 0; i < tasks.size(); i++)
+            if (stoi(search_arg) >= tasks.size())
             {
-                if (tasks[i].id == stoi(search_arg))
-                {
-                    tasks[i].status = "deleted";
-                    changes_happened = true;
-                    break;
-                }
+                std::cout << "No tasks of ID " << search_arg << "!";
+                continue;
             }
 
-            if (! changes_happened)
-                std::cout << "No tasks with '" << search_arg << "' ID!";
+            //tasks.erase(tasks.begin());
+            changes_happened = true;
         }
         
 
@@ -95,19 +89,14 @@ int main()
                 std::cout << "Invalid ID!";
                 continue;
             }
-
-            for (int i = 0; i < tasks.size(); i++)
+            if (stoi(search_arg) >= tasks.size())
             {
-                if (tasks[i].id == stoi(search_arg))
-                {
-                    tasks[i].update_status(new_status);
-                    changes_happened = true;
-                    break;
-                }
+                std::cout << "No tasks of ID " << search_arg << "!";
+                continue;
             }
 
-            if (! changes_happened)
-                std::cout << "No tasks with '" << search_arg << "' ID!";
+            tasks[stoi(search_arg)].update_status(new_status);
+            changes_happened = true;
         }
 
 
