@@ -8,6 +8,7 @@ using json = nlohmann::json;
 
 
 const std::unordered_set<std::string> task_statuses = {"todo", "in-progress", "done"};
+const std::unordered_set<std::string> task_updatable_properties = {"name", "desc", "status"};
 
 
 class Task
@@ -15,6 +16,7 @@ class Task
 public:
 
     std::string name;
+    std::string desc;
     std::string status = "todo";
 
 
@@ -46,12 +48,10 @@ public:
     // console-created task
     Task(const std::string& _name, const std::string& _desc, const std::string& _created_at)
     : name(_name), desc(_desc), created_at(_created_at)
-    {
-        std::cout << "Task created successfully [ID: *].";
-    }
+    {}
 
 
-    // out-of-file task
+    // loaded task
     Task(const std::string& _name, const std::string& _desc, const std::string& _status, const std::string& _created_at, const std::string& _updated_at)
     : name(_name), desc(_desc), created_at()
     {}
@@ -70,9 +70,9 @@ public:
     }
 
 
-    void output()
+    void output(const int id)
     {
-        std::cout << "=== "             <<   name    << " [ID: *]\n\n"
+        std::cout << "=== "             <<   name    << " [ID: " << id << "]\n\n"
                   <<                         desc    << '\n'
                   << " - Status: "     <<   status   << '\n'
                   << " - Created at: " << created_at << '\n'
@@ -80,22 +80,42 @@ public:
     }
 
 
-    void update_status(const std::string& new_status)
+    bool update(const std::string& property, std::string& new_value) // 'update()' returns whether the update was successful
     {
-        if (task_statuses.find(new_status) != task_statuses.end())
+        if (task_updatable_properties.find(property) == task_updatable_properties.end())
         {
-            status = new_status;
-            updated_at = get_cur_date_time();
-            std::cout << "Status of task '" << name << "' successfully updated!";
+            std::cout << "Property '" << property << "' doesn't exist or is not updatable!";
+            return false;
         }
-        else
-            std::cout << "Invalid status!";
+
+        if (property == "name")
+        {
+            new_value = new_value.substr(0, 20);
+            name = new_value;
+        }
+        else if (property == "desc")
+        {
+            new_value = new_value.substr(0, 50);
+            desc = new_value;
+        }
+        else if (property == "status")
+        {
+            if (task_statuses.find(new_value) == task_statuses.end())
+            {
+                std::cout << "Invalid status!";
+                return false;
+            }
+            status = new_value;
+        }
+        
+        updated_at = get_cur_date_time();
+        std::cout << "Update successful!";
+        return true;
     }
 
 
 private:
 
-    std::string desc;
     std::string created_at;
     std::string updated_at = "-";
 };

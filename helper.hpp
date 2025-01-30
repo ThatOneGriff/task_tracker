@@ -7,6 +7,9 @@
 #include <time.h>
 
 
+const std::string HELP_TEXT = "List of commands:\n - add [name] [desc]\n - delete [ID]\n - list [status: 'todo', 'in-progress', 'done'; 'all' to list all tasks]\n - update [property: 'name', 'desc'; 'status': 'todo', 'in-progress', 'done'] [ID] [new value]";
+
+
 std::string get_cur_date_time()
 {
     auto t = std::time(nullptr);

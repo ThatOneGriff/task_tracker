@@ -7,9 +7,7 @@
 
 
 /* TODO
-- Standardize console argument variables
-- 'help' command
-- solve 'erase' riddle */
+- revise all headers' code */
 
 
 
@@ -18,7 +16,7 @@ int main()
     std::cout << " === Task Tracker (type 'help' to list all commands) ===\n\n";
     std::vector<Task> tasks = load();
 
-    std::string command;
+    std::string command, arg1, arg2, arg3;
     bool changes_happened = false;
 
     while(true)
@@ -27,76 +25,85 @@ int main()
 
         if (command == "add")
         {
-            std::string name, desc;
-            std::cin >> name;
-            getline(std::cin, desc);
+            std::cin >> arg1; // name
+            getline(std::cin, arg2); // description
             
-            name = name.substr(0, 20);
-            desc = desc.substr(0, 50);
-            Task new_task(name, desc, get_cur_date_time());
+            arg1 = arg1.substr(0, 20);
+            arg2 = arg2.substr(0, 50);
+            Task new_task(arg1, arg2, get_cur_date_time());
             tasks.push_back(new_task);
+            std::cout << "Task created successfully [ID: " << tasks.size() - 1 << "].";
             changes_happened = true;
         }
 
 
         else if (command == "delete")
         {
-            std::string search_arg;
-            std::cin >> search_arg;
+            std::cin >> arg1; // ID
 
-            if (! is_num(search_arg))
+            if (! is_num(arg1))
             {
-                std::cout << "Invalid ID!";
+                std::cout << "Invalid ID!\n\n";
                 continue;
             }
-            if (stoi(search_arg) >= tasks.size())
+            if (stoi(arg1) >= tasks.size())
             {
-                std::cout << "No tasks of ID " << search_arg << "!";
+                std::cout << "No tasks of ID " << arg1 << "!\n\n";
                 continue;
             }
 
-            tasks.erase(tasks.begin() + stoi(search_arg));
+            tasks.erase(tasks.begin() + stoi(arg1));
             changes_happened = true;
+        }
+
+
+        else if (command == "help")
+        {
+            std::cout << HELP_TEXT << "\n\n";
+            continue;
         }
         
 
         else if (command == "list")
         {
-            std::string status_to_list;
-            std::cin >> status_to_list;
-            
+            std::cin >> arg1; // status to list
+            if (tasks.size() == 0)
+                continue;
             for (int i = 0; i < tasks.size(); i++)
             {
-                if (tasks[i].status == "deleted")
-                    continue;
-                
-                if ((status_to_list == "all") || (tasks[i].status == status_to_list))
+                if ((arg1 == "all") || (tasks[i].status == arg1))
                 {
-                    if (i > 0) std::cout << "\n\n";
-                    tasks[i].output();
+                    tasks[i].output(i);
+                    std::cout << "\n\n";
                 }
             }
+            continue;
         }
 
 
-        else if (command == "update-status")
+        else if (command == "update")
         {
-            std::string search_arg, new_status;
-            std::cin >> search_arg >> new_status;
+            std::cin >> arg1 >> arg2; // to update, ID
+            getline(std::cin, arg3);  // new value
+            arg3.erase(0, 1);         // arguments are spaced with ' ', but 'getline' thinks it's a part of 'arg3'
 
-            if (! is_num(search_arg))
+            if (task_updatable_properties.find(arg1) == task_updatable_properties.end())
             {
-                std::cout << "Invalid ID!";
+                std::cout << "Task property '" << arg1 << "' doesn't exist or isn't updatable!\n\n";
                 continue;
             }
-            if (stoi(search_arg) >= tasks.size())
+            if (! is_num(arg2))
             {
-                std::cout << "No tasks of ID " << search_arg << "!";
+                std::cout << "Invalid ID!\n\n";
+                continue;
+            }
+            if (stoi(arg2) >= tasks.size())
+            {
+                std::cout << "No tasks of ID " << arg2 << "!\n\n";
                 continue;
             }
 
-            tasks[stoi(search_arg)].update_status(new_status);
-            changes_happened = true;
+            changes_happened = tasks[stoi(arg2)].update(arg1, arg3); // 'update()' returns whether the update was successful
         }
 
 
