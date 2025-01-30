@@ -10,20 +10,19 @@
 using json = nlohmann::json;
 
 
-
-int load(std::vector<Task>& tasks)
+std::vector<Task> load()
 {
+    std::vector<Task> tasks;
     std::ifstream f("tasks.json");
     if (f.peek() == std::ifstream::traits_type::eof())
-        return 0;
+        return tasks;
     
     const json data = json::parse(f);
     f.close();
 
-    int max_id = 0;
     for (const auto& element: data)
     {
-        Task task(element["name"], element["desc"], element["created_at"], element["updated_at"]);
+        Task task(element["name"], element["desc"], element["status"], element["created_at"], element["updated_at"]);
         tasks.push_back(task);
     }
 
@@ -40,24 +39,19 @@ int load(std::vector<Task>& tasks)
         break;
     }
 
-    return max_id;
+    return tasks;
 }
-
 
 
 void save(std::vector<Task>& tasks)
 {
     json data;
     for (Task& task : tasks)
-    {
-        if (task.status != "deleted")
-            data.push_back(task.as_json());
-    }
+        data.push_back(task.as_json());
     std::ofstream file("tasks.json");
     file << std::setw(4) << data << std::endl;
     file.close();
 }
-
 
 
 #endif

@@ -8,15 +8,15 @@
 
 /* TODO
 - Standardize console argument variables
-- 'help' command */
+- 'help' command
+- solve 'erase' riddle */
 
 
 
 int main()
 {
     std::cout << " === Task Tracker (type 'help' to list all commands) ===\n\n";
-    std::vector<Task> tasks;
-    load(tasks);
+    std::vector<Task> tasks = load();
 
     std::string command;
     bool changes_happened = false;
@@ -55,7 +55,7 @@ int main()
                 continue;
             }
 
-            //tasks.erase(tasks.begin());
+            tasks.erase(tasks.begin() + stoi(search_arg));
             changes_happened = true;
         }
         

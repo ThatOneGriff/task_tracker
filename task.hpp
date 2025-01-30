@@ -14,8 +14,33 @@ class Task
 {
 public:
 
-    const std::string name;
+    std::string name;
     std::string status = "todo";
+
+
+    bool operator==(Task task2)
+    {
+        if (name       == task2.name       &&
+            desc       == task2.desc       && 
+            status     == task2.status     &&
+            created_at == task2.created_at &&
+            updated_at == task2.updated_at) return true;
+        return false;
+    }
+
+
+    Task operator=(Task task2)
+    {
+        if (*this == task2) return *this;
+
+        name = task2.name;
+        desc = task2.desc;
+        status = task2.status;
+        created_at = task2.created_at;
+        updated_at = task2.updated_at;
+
+        return *this;
+    }
 
 
     // console-created task
@@ -27,7 +52,7 @@ public:
 
 
     // out-of-file task
-    Task(const std::string& _name, const std::string& _desc, const std::string& _created_at, const std::string& _updated_at)
+    Task(const std::string& _name, const std::string& _desc, const std::string& _status, const std::string& _created_at, const std::string& _updated_at)
     : name(_name), desc(_desc), created_at()
     {}
 
@@ -37,6 +62,7 @@ public:
         json data = {
             {"name", name},
             {"desc", desc},
+            {"status", status},
             {"created_at", created_at},
             {"updated_at", updated_at}
         };
@@ -70,7 +96,7 @@ public:
 private:
 
     std::string desc;
-    const std::string created_at;
+    std::string created_at;
     std::string updated_at = "-";
 };
 
