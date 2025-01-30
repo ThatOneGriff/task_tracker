@@ -6,10 +6,6 @@
 #include "save_load.hpp"
 
 
-/* TODO
-- revise all headers' code */
-
-
 
 int main()
 {

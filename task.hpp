@@ -20,6 +20,7 @@ public:
     std::string status = "todo";
 
 
+    // Operators = and == are needed for erasing a task out of 'tasks' vector.
     bool operator==(Task task2)
     {
         if (name       == task2.name       &&
@@ -45,13 +46,13 @@ public:
     }
 
 
-    // console-created task
+    // for console-created tasks
     Task(const std::string& _name, const std::string& _desc, const std::string& _created_at)
     : name(_name), desc(_desc), created_at(_created_at)
     {}
 
 
-    // loaded task
+    // for loaded tasks
     Task(const std::string& _name, const std::string& _desc, const std::string& _status, const std::string& _created_at, const std::string& _updated_at)
     : name(_name), desc(_desc), created_at()
     {}
