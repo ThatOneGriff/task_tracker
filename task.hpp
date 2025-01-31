@@ -3,12 +3,16 @@
 
 #include <iostream>
 #include <nlohmann/json.hpp>
-#include <unordered_set>
 #include <unordered_map>
 using json = nlohmann::json;
 
 
-const std::unordered_set<std::string> task_statuses = {"todo", "in-progress", "done"};
+const std::unordered_map<std::string, const int> task_statuses_and_colors =
+{
+    {"todo",        GRAY},
+    {"in-progress", YELLOW},
+    {"done",        GREEN}
+};
 
 
 class Task
@@ -17,8 +21,8 @@ public:
 
     std::unordered_map<std::string, std::string> updatable_properties =
     {
-        {"name", ""},
-        {"desc", ""},
+        {"name",   ""},
+        {"desc",   ""},
         {"status", "todo"}
     };
 
@@ -80,17 +84,22 @@ public:
     {
         std::cout << "=== "            << updatable_properties["name"]   << " [ID: " << id << "]\n\n"
                   <<                      updatable_properties["desc"]   << '\n'
-                  << " - Status: "     << updatable_properties["status"] << '\n'
-                  << " - Created at: " << created_at << '\n'
+                  << " - Status: ";
+        textcolor(task_statuses_and_colors.at(updatable_properties["status"])); // coloring status text in this status' predetermined color
+        std::cout <<                      updatable_properties["status"] << '\n';
+        textcolor(WHITE);
+        std::cout << " - Created at: " << created_at                     << '\n'
                   << " - Updated at: " << updated_at;
     }
 
 
-    bool update(const std::string& property, std::string& new_value) // 'update()' returns whether the update was successful
+    bool update(const std::string& property, std::string& new_value) // 'update()' also returns whether anything has been updated
     {
         if (updatable_properties.find(property) == updatable_properties.end())
         {
+            textcolor(RED);
             std::cout << "Property '" << property << "' doesn't exist or is not updatable!";
+            textcolor(WHITE);
             return false;
         }
         
@@ -98,12 +107,14 @@ public:
         if (property == "name")
             new_value = new_value.substr(0, 20);
         else if (property == "desc")
-            new_value = new_value.substr(1, 50); // cutting off 1st character to get rid of whitespace
+            new_value = new_value.substr(0, 50);
         else if (property == "status")
         {
-            if (task_statuses.find(new_value) == task_statuses.end())
+            if (task_statuses_and_colors.find(new_value) == task_statuses_and_colors.end())
             {
+                textcolor(RED);
                 std::cout << "Invalid status!";
+                textcolor(WHITE);
                 return false;
             }
         }
@@ -111,19 +122,24 @@ public:
         // checking for false editing
         if (updatable_properties[property] == new_value)
         {
+            textcolor(YELLOW);
             std::cout << "No changes have taken place: value is the same!";
+            textcolor(WHITE);
             return false;
         }
 
         // updating
         updatable_properties[property] = new_value;
         updated_at = get_cur_date_time();
+        textcolor(GREEN);
         std::cout << "Update successful!";
+        textcolor(WHITE);
         return true;
     }
 
 
 private:
+
     std::string created_at;
     std::string updated_at = "-";
 };

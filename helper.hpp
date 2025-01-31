@@ -5,9 +5,15 @@
 #include <iostream>
 #include <string>
 #include <time.h>
+#include <windows.h>
 
 
 const std::string HELP_TEXT = "List of commands:\n - add [name] [desc]\n - delete [ID]\n - list [status: 'todo', 'in-progress', 'done'; 'all' to list all tasks]\n - update [property: 'name', 'desc', 'status' ('todo', 'in-progress', 'done')] [ID] [new value]";
+const int WHITE  = 7,
+          GRAY   = 8,
+          RED    = 4,
+          GREEN  = 2,
+          YELLOW = 6;
 
 
 std::string get_cur_date_time()
@@ -29,6 +35,12 @@ bool is_num(const std::string& str)
             return false;
     }
     return true;
+}
+
+
+void textcolor(const int color_code)
+{
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color_code);
 }
 
 

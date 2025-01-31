@@ -16,7 +16,9 @@ std::vector<Task> load()
     std::ifstream f("tasks.json");
     if (f.peek() == std::ifstream::traits_type::eof())
     {
+        textcolor(YELLOW);
         std::cout << "No tasks loaded: data file 'tasks.json' not found.\n\n";
+        textcolor(WHITE);
         return tasks;
     }
     
@@ -32,7 +34,9 @@ std::vector<Task> load()
     switch (tasks.size())
     {
     case 0:
+        textcolor(YELLOW);
         std::cout << "No tasks loaded: data file 'tasks.json' is empty.\n\n";
+        textcolor(WHITE);
         break;
     case 1:
         std::cout << "1 task loaded.\n\n";
