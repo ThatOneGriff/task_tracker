@@ -9,7 +9,6 @@
 
 /* TODO
 - maybe stylize commands: "add --name <...> --desc <...>"
-- enhance help text
 - add build instructions to 'readme.md'
 */
 

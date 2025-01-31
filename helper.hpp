@@ -8,7 +8,7 @@
 #include <windows.h>
 
 
-const std::string HELP_TEXT = "List of commands:\n - add [name] [desc]\n - delete [ID]\n - list [status: 'todo', 'in-progress', 'done'; 'all' to list all tasks]\n - update [property: 'name', 'desc', 'status' ('todo', 'in-progress', 'done')] [ID] [new value]";
+const std::string HELP_TEXT = " = List of commands =\n - add [name (1 word)] [desc]\n - delete [ID]\n - list [status: 'todo', 'in-progress', 'done'; 'all' to list all tasks]\n - update [property: 'name', 'desc', 'status' ('todo', 'in-progress', 'done')] [ID] [new value]";
 const int WHITE  = 7,
           GRAY   = 8,
           RED    = 4,
