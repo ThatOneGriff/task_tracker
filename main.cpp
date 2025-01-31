@@ -24,6 +24,7 @@ int main()
 
     while(true)
     {
+        std::cout << "> ";
         std::cin >> command;
 
         if (command == "add")
