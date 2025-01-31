@@ -7,6 +7,15 @@
 
 
 
+/* TODO
+- add conio.h
+- maybe stylize commands: "add --name <...> --desc <...>"
+- enhance help text
+- add build instructions to 'readme.md'
+*/
+
+
+
 int main()
 {
     std::cout << " === Task Tracker (type 'help' to list all commands) ===\n\n";
@@ -26,7 +35,7 @@ int main()
             
             arg1 = arg1.substr(0, 20);
             arg2 = arg2.substr(0, 50);
-            Task new_task(arg1, arg2, get_cur_date_time());
+            Task new_task(arg1, arg2);
             tasks.push_back(new_task);
             std::cout << "Task created successfully [ID: " << tasks.size() - 1 << "].";
             changes_happened = true;
@@ -64,10 +73,10 @@ int main()
         {
             std::cin >> arg1; // status to list
             if (tasks.size() == 0)
-                continue;
+                continue; // without this some strange newline magic happens and it's not looking good
             for (int i = 0; i < tasks.size(); i++)
             {
-                if ((arg1 == "all") || (tasks[i].status == arg1))
+                if ((arg1 == "all") || (tasks[i].updatable_properties["status"] == arg1))
                 {
                     tasks[i].output(i);
                     std::cout << "\n\n";
@@ -83,11 +92,6 @@ int main()
             getline(std::cin, arg3);  // new value
             arg3.erase(0, 1);         // arguments are spaced with ' ', but 'getline' thinks it's a part of 'arg3'
 
-            if (task_updatable_properties.find(arg1) == task_updatable_properties.end())
-            {
-                std::cout << "Task property '" << arg1 << "' doesn't exist or isn't updatable!\n\n";
-                continue;
-            }
             if (! is_num(arg2))
             {
                 std::cout << "Invalid ID!\n\n";

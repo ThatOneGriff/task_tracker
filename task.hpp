@@ -4,30 +4,30 @@
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include <unordered_set>
+#include <unordered_map>
 using json = nlohmann::json;
 
 
 const std::unordered_set<std::string> task_statuses = {"todo", "in-progress", "done"};
-const std::unordered_set<std::string> task_updatable_properties = {"name", "desc", "status"};
 
 
 class Task
 {
 public:
 
-    std::string name;
-    std::string desc;
-    std::string status = "todo";
-
+    std::unordered_map<std::string, std::string> updatable_properties =
+    {
+        {"name", ""},
+        {"desc", ""},
+        {"status", "todo"}
+    };
 
     // Operators = and == are needed for erasing a task out of 'tasks' vector.
     bool operator==(Task task2)
     {
-        if (name       == task2.name       &&
-            desc       == task2.desc       && 
-            status     == task2.status     &&
-            created_at == task2.created_at &&
-            updated_at == task2.updated_at) return true;
+        if (updatable_properties == task2.updatable_properties &&
+            created_at           == task2.created_at           &&
+            updated_at           == task2.updated_at)     return true;
         return false;
     }
 
@@ -36,9 +36,7 @@ public:
     {
         if (*this == task2) return *this;
 
-        name = task2.name;
-        desc = task2.desc;
-        status = task2.status;
+        updatable_properties = task2.updatable_properties;
         created_at = task2.created_at;
         updated_at = task2.updated_at;
 
@@ -47,23 +45,30 @@ public:
 
 
     // for console-created tasks
-    Task(const std::string& _name, const std::string& _desc, const std::string& _created_at)
-    : name(_name), desc(_desc), created_at(_created_at)
-    {}
+    Task(const std::string& _name, const std::string& _desc)
+    : created_at(get_cur_date_time())
+    {
+        updatable_properties["name"] = _name;
+        updatable_properties["desc"] = _desc;
+    }
 
 
     // for loaded tasks
     Task(const std::string& _name, const std::string& _desc, const std::string& _status, const std::string& _created_at, const std::string& _updated_at)
-    : name(_name), desc(_desc), created_at()
-    {}
+    : created_at(_created_at), updated_at(_updated_at)
+    {
+        updatable_properties["name"] = _name;
+        updatable_properties["desc"] = _desc;
+        updatable_properties["status"] = _status;
+    }
 
 
     json as_json()
     {
         json data = {
-            {"name", name},
-            {"desc", desc},
-            {"status", status},
+            {"name", updatable_properties["name"]},
+            {"desc", updatable_properties["desc"]},
+            {"status", updatable_properties["status"]},
             {"created_at", created_at},
             {"updated_at", updated_at}
         };
@@ -73,9 +78,9 @@ public:
 
     void output(const int id)
     {
-        std::cout << "=== "             <<   name    << " [ID: " << id << "]\n\n"
-                  <<                         desc    << '\n'
-                  << " - Status: "     <<   status   << '\n'
+        std::cout << "=== "            << updatable_properties["name"]   << " [ID: " << id << "]\n\n"
+                  <<                      updatable_properties["desc"]   << '\n'
+                  << " - Status: "     << updatable_properties["status"] << '\n'
                   << " - Created at: " << created_at << '\n'
                   << " - Updated at: " << updated_at;
     }
@@ -83,22 +88,17 @@ public:
 
     bool update(const std::string& property, std::string& new_value) // 'update()' returns whether the update was successful
     {
-        if (task_updatable_properties.find(property) == task_updatable_properties.end())
+        if (updatable_properties.find(property) == updatable_properties.end())
         {
             std::cout << "Property '" << property << "' doesn't exist or is not updatable!";
             return false;
         }
-
+        
+        // value preparation
         if (property == "name")
-        {
             new_value = new_value.substr(0, 20);
-            name = new_value;
-        }
         else if (property == "desc")
-        {
-            new_value = new_value.substr(0, 50);
-            desc = new_value;
-        }
+            new_value = new_value.substr(1, 50); // cutting off 1st character to get rid of whitespace
         else if (property == "status")
         {
             if (task_statuses.find(new_value) == task_statuses.end())
@@ -106,9 +106,17 @@ public:
                 std::cout << "Invalid status!";
                 return false;
             }
-            status = new_value;
         }
-        
+
+        // checking for false editing
+        if (updatable_properties[property] == new_value)
+        {
+            std::cout << "No changes have taken place: value is the same!";
+            return false;
+        }
+
+        // updating
+        updatable_properties[property] = new_value;
         updated_at = get_cur_date_time();
         std::cout << "Update successful!";
         return true;
@@ -116,7 +124,6 @@ public:
 
 
 private:
-
     std::string created_at;
     std::string updated_at = "-";
 };
