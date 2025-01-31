@@ -135,6 +135,15 @@ int main()
         }
 
 
+        else
+        {
+            textcolor(RED);
+            std::cout << "Unknown command!\n\n";
+            textcolor(WHITE);
+            continue;
+        }
+
+
         std::cout << "\n\n";
         std::cin.clear();
         if (changes_happened)
