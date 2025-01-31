@@ -2,6 +2,8 @@
 
 This project got me to make a simple task tracking tool. I took the idea from here: https://roadmap.sh/projects/task-tracker
 
+<!> Not Linux-compatible because of `<windows.h>` usage. Linux branch may come later.
+
 One of the rules said not to use any external dependencies, but I decided to break it for the self-ed sake.
 
 Huge credit to nlohmann! Link to his amazing JSON library: https://github.com/nlohmann/json
