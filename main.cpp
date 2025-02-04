@@ -8,6 +8,7 @@
 
 
 /* TODO
+- might make a colored output function
 - maybe stylize commands: "add --name <...> --desc <...>"
 - add build instructions to 'readme.md'
 */
@@ -21,7 +22,10 @@ int main()
 
     std::string command, arg1, arg2, arg3;
     bool changes_happened = false;
-
+    
+    // Note: minimal task ID in the interface is 1,
+    // however, they're still stored in a vector,
+    // thus have a minimal index of 0.
     while(true)
     {
         std::cout << "> ";
@@ -39,7 +43,7 @@ int main()
             changes_happened = true;
 
             textcolor(GREEN);
-            std::cout << "Task created successfully [ID: " << tasks.size() - 1 << "].";
+            std::cout << "Task created successfully [ID: " << tasks.size() << "].";
             textcolor(WHITE);
         }
 
@@ -48,22 +52,22 @@ int main()
         {
             std::cin >> arg1; // ID
 
-            if (! is_num(arg1))
+            if (! is_num(arg1) || stoi(arg1) < 1)
             {
                 textcolor(RED);
                 std::cout << "Invalid ID!\n\n";
                 textcolor(WHITE);
                 continue;
             }
-            if (stoi(arg1) >= tasks.size())
+            if (stoi(arg1) > tasks.size())
             {
-                textcolor(RED);
+                textcolor(YELLOW);
                 std::cout << "No tasks of ID " << arg1 << "!\n\n";
                 textcolor(WHITE);
                 continue;
             }
 
-            tasks.erase(tasks.begin() + stoi(arg1));
+            tasks.erase(tasks.begin() + stoi(arg1)-1);
             changes_happened = true;
 
             textcolor(GREEN);
@@ -96,14 +100,14 @@ int main()
                 if ((arg1 == "all") || (tasks[i].updatable_properties["status"] == arg1))
                 {
                     output_happened = true;
-                    tasks[i].output(i);
+                    tasks[i].output(i+1);
                     std::cout << "\n\n";
                 }
             }
             if (! output_happened)
             {
                 textcolor(YELLOW);
-                std::cout << "No tasks with this status!\n\n";
+                std::cout << "No tasks with such status!\n\n";
                 textcolor(WHITE);
             }
             continue;
@@ -116,22 +120,22 @@ int main()
             getline(std::cin, arg3);  // new value
             arg3.erase(0, 1);         // arguments are spaced with ' ', but 'getline' thinks it's a part of 'arg3'
 
-            if (! is_num(arg2))
+            if (! is_num(arg2) || stoi(arg2) < 1)
             {
                 textcolor(RED);
                 std::cout << "Invalid ID!\n\n";
                 textcolor(WHITE);
                 continue;
             }
-            if (stoi(arg2) >= tasks.size())
+            if (stoi(arg2) > tasks.size())
             {
-                textcolor(RED);
+                textcolor(YELLOW);
                 std::cout << "No tasks of ID " << arg2 << "!\n\n";
                 textcolor(WHITE);
                 continue;
             }
 
-            changes_happened = tasks[stoi(arg2)].update(arg1, arg3); // 'update()' also returns whether anything has been updated
+            changes_happened = tasks[stoi(arg2)-1].update(arg1, arg3); // 'update()' also returns whether anything has been updated
         }
 
 
