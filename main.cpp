@@ -9,7 +9,6 @@
 
 /* TODO
 - might make a colored output function
-- maybe stylize commands: "add --name <...> --desc <...>"
 - add build instructions to 'readme.md'
 */
 
@@ -21,7 +20,6 @@ int main()
     std::vector<Task> tasks = load();
 
     std::string command, arg1, arg2, arg3;
-    bool changes_happened = false;
     
     // Note: minimal task ID in the interface is 1,
     // however, they're still stored in a vector,
@@ -36,11 +34,10 @@ int main()
             std::cin >> arg1; // name
             getline(std::cin, arg2); // description
             
-            arg1 = arg1.substr(0, 20);
-            arg2 = arg2.substr(0, 50);
+            arg1 = arg1.substr(0, NAME_LIMIT);
+            arg2 = arg2.substr(0, DESC_LIMIT);
             Task new_task(arg1, arg2);
             tasks.push_back(new_task);
-            changes_happened = true;
 
             textcolor(GREEN);
             std::cout << "Task created successfully [ID: " << tasks.size() << "].";
@@ -68,8 +65,6 @@ int main()
             }
 
             tasks.erase(tasks.begin() + stoi(arg1)-1);
-            changes_happened = true;
-
             textcolor(GREEN);
             std::cout << "Task deleted successfully!";
             textcolor(WHITE);
@@ -135,7 +130,8 @@ int main()
                 continue;
             }
 
-            changes_happened = tasks[stoi(arg2)-1].update(arg1, arg3); // 'update()' also returns whether anything has been updated
+            if (! tasks[stoi(arg2)-1].update(arg1, arg3)) // 'update()' also returns whether anything has been updated
+                continue; // if update didn't happen
         }
 
 
@@ -150,11 +146,7 @@ int main()
 
         std::cout << "\n\n";
         std::cin.clear();
-        if (changes_happened)
-        {
-            save(tasks);
-            changes_happened = false;
-        }
+        save(tasks); // is only reached if changes truly happened
     }
 
     return 0;

@@ -105,11 +105,12 @@ public:
         
         // value preparation
         if (property == "name")
-            new_value = new_value.substr(0, 20);
+            new_value = new_value.substr(0, NAME_LIMIT);
         else if (property == "desc")
-            new_value = new_value.substr(0, 50);
+            new_value = new_value.substr(0, DESC_LIMIT);
         else if (property == "status")
         {
+            new_value = new_value.substr(0, STATUS_LIMIT);
             if (task_statuses_and_colors.find(new_value) == task_statuses_and_colors.end())
             {
                 textcolor(RED);
