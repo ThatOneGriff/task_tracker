@@ -8,7 +8,8 @@
 
 
 /* TODO
-- might make a colored output function
+- overview
+- settings?
 - add build instructions to 'readme.md'
 */
 
@@ -21,11 +22,12 @@ int main()
 
     std::string command, arg1, arg2, arg3;
     
-    // Note: minimal task ID in the interface is 1,
+    // Note: minimal ID of a task IN THE INTERFACE is 1,
     // however, they're still stored in a vector,
-    // thus have a minimal index of 0.
+    // thus have a FACTUAL, IN-CODE minimal index of 0.
     while(true)
     {
+        std::cin.clear();
         std::cout << "> ";
         std::cin >> command;
 
@@ -145,8 +147,7 @@ int main()
 
 
         std::cout << "\n\n";
-        std::cin.clear();
-        save(tasks); // is only reached if changes truly happened
+        save(tasks); // only reached when changes truly happened
     }
 
     return 0;
