@@ -8,6 +8,7 @@
 
 
 /* TODO
+- 'cout << GREEN << ... << WHITE' stuff
 - overview
 - settings?
 - add build instructions to 'readme.md'
@@ -133,7 +134,10 @@ int main()
             }
 
             if (! tasks[stoi(arg2)-1].update(arg1, arg3)) // 'update()' also returns whether anything has been updated
-                continue; // if update didn't happen
+            {
+                std::cout << "\n\n";
+                continue; // if update didn't take place
+            }
         }
 
 
