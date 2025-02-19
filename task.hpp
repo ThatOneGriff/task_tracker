@@ -84,11 +84,11 @@ public:
     {
         std::cout << "=== "            << updatable_properties["name"]   << " [ID: " << id << "]\n\n"
                   <<                      updatable_properties["desc"]   << '\n'
-                  << " - Status: ";
-        textcolor(task_statuses_and_colors.at(updatable_properties["status"])); // coloring status text in this status' predetermined color
-        std::cout <<                      updatable_properties["status"] << '\n';
-        textcolor(WHITE);
-        std::cout << " - Created at: " << created_at                     << '\n'
+                  << " - Status: "
+                    << textcolor(task_statuses_and_colors.at(updatable_properties["status"])) /* coloring status in its predetermined color */
+                    << updatable_properties["status"] << '\n'
+                    << textcolor(WHITE)
+                  << " - Created at: " << created_at                     << '\n'
                   << " - Updated at: " << updated_at;
     }
 
@@ -97,9 +97,7 @@ public:
     {
         if (updatable_properties.find(property) == updatable_properties.end())
         {
-            textcolor(RED);
-            std::cout << "Property '" << property << "' doesn't exist or is not updatable!";
-            textcolor(WHITE);
+            std::cout << textcolor(RED) << "Task property '" << property << "' doesn't exist or is not updatable!" << textcolor(WHITE);
             return false;
         }
         
@@ -113,9 +111,7 @@ public:
             new_value = new_value.substr(0, STATUS_LIMIT);
             if (task_statuses_and_colors.find(new_value) == task_statuses_and_colors.end())
             {
-                textcolor(RED);
-                std::cout << "Invalid status!";
-                textcolor(WHITE);
+                std::cout << textcolor(RED) << "Invalid status!" << textcolor(WHITE);
                 return false;
             }
         }
@@ -123,18 +119,14 @@ public:
         // checking for false editing
         if (updatable_properties[property] == new_value)
         {
-            textcolor(YELLOW);
-            std::cout << "No changes have taken place: value is the same!";
-            textcolor(WHITE);
+            std::cout << textcolor(YELLOW) << "No changes have taken place: value is the same!" << textcolor(WHITE);
             return false;
         }
 
         // updating
         updatable_properties[property] = new_value;
         updated_at = get_cur_date_time();
-        textcolor(GREEN);
-        std::cout << "Update successful!";
-        textcolor(WHITE);
+        std::cout << textcolor(GREEN) << "Update successful!" << textcolor(WHITE);
         return true;
     }
 

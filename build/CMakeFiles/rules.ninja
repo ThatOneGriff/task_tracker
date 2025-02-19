@@ -69,7 +69,7 @@ rule CUSTOM_COMMAND
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = "C:\Program Files\CMake\bin\cmake.exe" --regenerate-during-build -SC:\Users\Àðò¸ì\Desktop\task_tracker -BC:\Users\Àðò¸ì\Desktop\task_tracker\build
+  command = "C:\Program Files\CMake\bin\cmake.exe" --regenerate-during-build -S"C:\Users\Àðò¸ì\Documents\pet projects\task_tracker" -B"C:\Users\Àðò¸ì\Documents\pet projects\task_tracker\build"
   description = Re-running CMake...
   generator = 1
 

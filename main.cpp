@@ -9,10 +9,10 @@
 
 
 /* TODO
-- 'cout << GREEN << ... << WHITE' stuff
 - invalid data handling
 - non-case-sensitivity
 - add build instructions to 'readme.md'
+- make the project fine with moving into different folders
 */
 
 /* POSSIBILITIES
@@ -58,9 +58,7 @@ int main()
             Task new_task(arg1, arg2);
             tasks.push_back(new_task);
 
-            textcolor(GREEN);
-            std::cout << "Task created successfully [ID: " << tasks.size() << "].";
-            textcolor(WHITE);
+            std::cout << textcolor(GREEN) << "Task created successfully [ID: " << tasks.size() << "]." << textcolor(WHITE);
         }
 
 
@@ -71,36 +69,28 @@ int main()
             if (arg1 == "all")
             {
                 tasks.clear();
-                textcolor(GREEN);
-                std::cout << "All tasks cleared!\n\n";
-                textcolor(WHITE);
+                std::cout << textcolor(GREEN) << "All tasks cleared!\n\n" << textcolor(WHITE);
                 continue;
             }
             if (! is_num(arg1) || stoi(arg1) < 1)
             {
-                textcolor(RED);
-                std::cout << "Invalid ID!\n\n";
-                textcolor(WHITE);
+                std::cout << textcolor(RED) << "Invalid ID!\n\n" << textcolor(WHITE);
                 continue;
             }
             if (stoi(arg1) > tasks.size())
             {
-                textcolor(YELLOW);
-                std::cout << "No tasks of ID " << arg1 << "!\n\n";
-                textcolor(WHITE);
+                std::cout << textcolor(YELLOW) << "No tasks of ID " << arg1 << "!\n\n" << textcolor(WHITE);
                 continue;
             }
 
             tasks.erase(tasks.begin() + stoi(arg1)-1);
-            textcolor(GREEN);
-            std::cout << "Task deleted successfully!";
-            textcolor(WHITE);
+            std::cout << textcolor(GREEN) << "Task deleted successfully!" << textcolor(WHITE);
         }
 
 
         else if (command == "help")
         {
-            std::cout << HELP_TEXT << "\n\n";
+            std::cout << '\n' << HELP_TEXT << "\n\n";
             continue;
         }
         
@@ -110,9 +100,7 @@ int main()
             input >> arg1; // status to list
             if (tasks.size() == 0)
             {
-                textcolor(YELLOW);
-                std::cout << "Task list is empty!\n\n";
-                textcolor(WHITE);
+                std::cout << textcolor(YELLOW) << "Task list is empty!\n\n" << textcolor(WHITE);
                 continue;
             }
 
@@ -126,12 +114,9 @@ int main()
                     std::cout << "\n\n";
                 }
             }
+
             if (! output_happened)
-            {
-                textcolor(YELLOW);
-                std::cout << "No tasks with such status!\n\n";
-                textcolor(WHITE);
-            }
+                std::cout << textcolor(YELLOW) << "No tasks with such status!\n\n" << textcolor(WHITE);
             continue;
         }
 
@@ -145,16 +130,12 @@ int main()
 
             if (! is_num(arg2) || stoi(arg2) < 1)
             {
-                textcolor(RED);
-                std::cout << "Invalid ID!\n\n";
-                textcolor(WHITE);
+                std::cout << textcolor(RED) << "Invalid ID!\n\n" << textcolor(WHITE);
                 continue;
             }
             if (stoi(arg2) > tasks.size())
             {
-                textcolor(YELLOW);
-                std::cout << "No tasks of ID " << arg2 << "!\n\n";
-                textcolor(WHITE);
+                std::cout << textcolor(YELLOW) << "No tasks of ID " << arg2 << "!\n\n" << textcolor(WHITE);
                 continue;
             }
             
@@ -169,9 +150,7 @@ int main()
 
         else
         {
-            textcolor(RED);
-            std::cout << "Unknown command!\n\n";
-            textcolor(WHITE);
+            std::cout << textcolor(RED) << "Unknown command!\n\n" << textcolor(WHITE);
             continue;
         }
 

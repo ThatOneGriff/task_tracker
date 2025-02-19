@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/Артём/Desktop/task_tracker/include/nlohmann_json
+# Install script for directory: C:/Users/Артём/Documents/pet projects/task_tracker/include/nlohmann_json
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,6 +40,6 @@ endif()
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
 if(CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "C:/Users/Артём/Desktop/task_tracker/build/include/nlohmann_json/install_local_manifest.txt"
+  file(WRITE "C:/Users/Артём/Documents/pet projects/task_tracker/build/include/nlohmann_json/install_local_manifest.txt"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()
