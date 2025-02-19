@@ -42,12 +42,15 @@ int main()
     while(true)
     {
         // cleaning leftover input
-        //getline(input, unprocessed_input);
-        input.clear();
         std::cin.clear();
+        input.clear();
 
-        std::cout << "> ";
-        getline(std::cin, unprocessed_input);
+        do
+        {
+            std::cout << "> ";
+            getline(std::cin, unprocessed_input);
+        } while (unprocessed_input == ""); // to exclude the possibility of empty input
+        
         input << unprocessed_input;
         input >> command;
         lower(command); // non-case sensitivity
