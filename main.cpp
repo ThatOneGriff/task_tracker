@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 #include <string>
 #include <vector>
 
@@ -9,9 +10,14 @@
 
 /* TODO
 - 'cout << GREEN << ... << WHITE' stuff
-- overview
-- settings?
+- invalid data handling
+- non-case-sensitivity
 - add build instructions to 'readme.md'
+*/
+
+/* POSSIBILITIES
+- activity overview
+- settings
 */
 
 
@@ -21,24 +27,34 @@ int main()
     std::cout << " === Task Tracker (type 'help' to list all commands) ===\n\n";
     std::vector<Task> tasks = load();
 
-    std::string command, arg1, arg2, arg3;
+    std::string unprocessed_input;
+    std::stringstream input;
+
+    std::string command;
+    std::string arg1, arg2, arg3;
     
     // Note: minimal ID of a task IN THE INTERFACE is 1,
     // however, they're still stored in a vector,
     // thus have a FACTUAL, IN-CODE minimal index of 0.
     while(true)
     {
+        // cleaning leftover input
+        //getline(input, unprocessed_input);
+        input.clear();
         std::cin.clear();
+
         std::cout << "> ";
-        std::cin >> command;
+        getline(std::cin, unprocessed_input);
+        input << unprocessed_input;
+        input >> command;
 
         if (command == "add")
         {
-            std::cin >> arg1; // name
-            getline(std::cin, arg2); // description
+            input >> arg1; // name
+            getline(input, arg2); // description
             
             arg1 = arg1.substr(0, NAME_LIMIT);
-            arg2 = arg2.substr(0, DESC_LIMIT);
+            arg2 = arg2.substr(1, DESC_LIMIT + 1); // since 1st symbol is always a whitespace
             Task new_task(arg1, arg2);
             tasks.push_back(new_task);
 
@@ -48,10 +64,18 @@ int main()
         }
 
 
-        else if (command == "delete")
+        else if (command == "delete" || command == "remove")
         {
-            std::cin >> arg1; // ID
+            input >> arg1; // ID
 
+            if (arg1 == "all")
+            {
+                tasks.clear();
+                textcolor(GREEN);
+                std::cout << "All tasks cleared!\n\n";
+                textcolor(WHITE);
+                continue;
+            }
             if (! is_num(arg1) || stoi(arg1) < 1)
             {
                 textcolor(RED);
@@ -83,7 +107,7 @@ int main()
 
         else if (command == "list")
         {
-            std::cin >> arg1; // status to list
+            input >> arg1; // status to list
             if (tasks.size() == 0)
             {
                 textcolor(YELLOW);
@@ -114,9 +138,10 @@ int main()
 
         else if (command == "update")
         {
-            std::cin >> arg1 >> arg2; // property, ID
-            getline(std::cin, arg3);  // new value
-            arg3.erase(0, 1);         // arguments are spaced with ' ', but 'getline' thinks it's a part of 'arg3'
+            input >> arg1; // property
+            input >> arg2; // ID
+            getline(input, arg3);  // new value
+            arg3.erase(0, 1);      // since 1st symbol is always a whitespace
 
             if (! is_num(arg2) || stoi(arg2) < 1)
             {
@@ -132,11 +157,12 @@ int main()
                 textcolor(WHITE);
                 continue;
             }
-
-            if (! tasks[stoi(arg2)-1].update(arg1, arg3)) // 'update()' also returns whether anything has been updated
+            
+            // if update didn't take place
+            if (! tasks[stoi(arg2)-1].update(arg1, arg3)) // 'update()' function returns whether anything has been updated
             {
                 std::cout << "\n\n";
-                continue; // if update didn't take place
+                continue; // No warning message since it's all handled by the 'Task' class
             }
         }
 
