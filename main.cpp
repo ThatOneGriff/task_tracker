@@ -10,7 +10,7 @@
 
 /* TODO
 - invalid data handling
-- non-case-sensitivity
+- dailies, due dates
 - add build instructions to 'readme.md'
 - make the project fine with moving into different folders
 */
@@ -18,6 +18,7 @@
 /* POSSIBILITIES
 - activity overview
 - settings
+- storing saved data anywhere => handling absolute paths
 */
 
 
@@ -47,6 +48,7 @@ int main()
         getline(std::cin, unprocessed_input);
         input << unprocessed_input;
         input >> command;
+        lower(command); // non-case sensitivity
 
         if (command == "add")
         {
@@ -65,6 +67,7 @@ int main()
         else if (command == "delete" || command == "remove")
         {
             input >> arg1; // ID
+            lower(arg1); // non-case sensitivity
 
             if (arg1 == "all")
             {
@@ -97,12 +100,14 @@ int main()
 
         else if (command == "list")
         {
-            input >> arg1; // status to list
             if (tasks.size() == 0)
             {
                 std::cout << textcolor(YELLOW) << "Task list is empty!\n\n" << textcolor(WHITE);
                 continue;
             }
+
+            input >> arg1; // status to list
+            lower(arg1); // non-case sensitivity
 
             bool output_happened = false;
             for (int i = 0; i < tasks.size(); i++)
@@ -124,6 +129,7 @@ int main()
         else if (command == "update")
         {
             input >> arg1; // property
+            lower(arg1); // non-case sensitivity
             input >> arg2; // ID
             getline(input, arg3);  // new value
             arg3.erase(0, 1);      // since 1st symbol is always a whitespace

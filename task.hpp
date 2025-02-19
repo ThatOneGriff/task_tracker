@@ -109,6 +109,7 @@ public:
         else if (property == "status")
         {
             new_value = new_value.substr(0, STATUS_LIMIT);
+            lower(new_value);
             if (task_statuses_and_colors.find(new_value) == task_statuses_and_colors.end())
             {
                 std::cout << textcolor(RED) << "Invalid status!" << textcolor(WHITE);

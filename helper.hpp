@@ -8,7 +8,7 @@
 #include <windows.h>
 
 
-const std::string HELP_TEXT = " = List of commands =\n - add [name (1 word)] [desc]\n - delete OR remove [ID, can be 'all']\n - list [status: 'todo', 'in-progress', 'done'; 'all' to list all tasks]\n - update [property: 'name', 'desc', 'status' ('todo', 'in-progress', 'done')] [ID] [new value]";
+const std::string HELP_TEXT = " = List of commands =\n - add [name (1 word)] [desc]\n - delete (remove) [ID (can be 'all')]\n - list [status: 'todo', 'in-progress', 'done'; 'all' to list all tasks]\n - update [property: 'name', 'desc', 'status' ('todo', 'in-progress', 'done')] [ID] [new value]";
 // character limits for properties
 const int NAME_LIMIT   = 25, 
           DESC_LIMIT   = 70,
@@ -40,6 +40,13 @@ bool is_num(const std::string& str)
             return false;
     }
     return true;
+}
+
+
+void lower(std::string& str)
+{
+    for (char& c: str)
+        c = tolower(c);
 }
 
 
