@@ -11,7 +11,7 @@
 /* TODO
 - invalid data handling
 - dailies, due dates
-- names that are multiple words long without manually changing it to be so
+- names that are multiple words long without manually changing it to be so ?=> input modes
 - add build instructions to 'readme.md'
 - make the project fine with moving into different folders
 */
