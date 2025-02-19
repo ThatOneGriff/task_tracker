@@ -11,11 +11,13 @@
 /* TODO
 - invalid data handling
 - dailies, due dates
+- names that are multiple words long without manually changing it to be so
 - add build instructions to 'readme.md'
 - make the project fine with moving into different folders
 */
 
 /* POSSIBILITIES
+- "simple" (current) and "advanced" (add --name "..." --desc "...") input modes => settings
 - activity overview
 - settings
 - storing saved data anywhere => handling absolute paths
