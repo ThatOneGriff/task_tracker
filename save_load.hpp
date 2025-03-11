@@ -1,7 +1,6 @@
 #ifndef SAVE_LOAD_HPP
 #define SAVE_LOAD_HPP
 
-#include <iostream>
 #include <fstream>
 #include <nlohmann/json.hpp>
 #include <vector>

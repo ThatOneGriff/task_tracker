@@ -1,6 +1,5 @@
 #include <iostream>
 #include <sstream>
-#include <string>
 #include <vector>
 
 #include "helper.hpp"
@@ -170,7 +169,7 @@ void clean_input()
 
 
 
-void distribute_input() // IDEA: carry this over to 'task_tracker'
+void distribute_input()
 {
     std::stringstream input_stream(raw_input);
     std::string word;
@@ -188,7 +187,7 @@ void distribute_input() // IDEA: carry this over to 'task_tracker'
 
         if (quote_marks_open)
             input[i] += ' ' + word;
-        if (word[word.size() - 1] == '"') // last word in an MWA cascades through the previous 'if' to here
+        if (word[word.size() - 1] == '"') // last word in an [MWA] cascades through the previous 'if' to here
         {
             quote_marks_open = false;
             input[i] = input[i].substr(0, input[i].size() - 1);
