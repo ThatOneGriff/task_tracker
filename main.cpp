@@ -9,59 +9,57 @@
 
 
 /* TODO
+- more detailed help text, with mention of quote marks
+- 'delete 1-5'
+- list todo, in-progress
 - invalid data handling
 - dailies, due dates
-- names that are multiple words long without manually changing it to be so ?=> input modes
 - add build instructions to 'readme.md'
 - make the project fine with moving into different folders
 */
 
-/* POSSIBILITIES
-- "simple" (current) and "advanced" (add --name "..." --desc "...") input modes => settings
+/* IDEAS
+- 'done' auto-deletion => settings
 - activity overview
 - settings
 - storing saved data anywhere => handling absolute paths
 */
 
 
+void clean_input();
+void distribute_input();
+
+std::string raw_input;
+
+const int INPUT_VAR_AMOUNT = 4; // 1 command, 3 args
+std::string input[INPUT_VAR_AMOUNT];
+#define command input[0]
+#define arg1    input[1]
+#define arg2    input[2]
+#define arg3    input[3]
+
 
 int main()
 {
     std::cout << " === Task Tracker (type 'help' to list all commands) ===\n\n";
     std::vector<Task> tasks = load();
-
-    std::string unprocessed_input;
-    std::stringstream input;
-
-    std::string command;
-    std::string arg1, arg2, arg3;
     
     // Note: minimal ID of a task IN THE INTERFACE is 1,
     // however, they're still stored in a vector,
     // thus have a FACTUAL, IN-CODE minimal index of 0.
     while(true)
     {
-        // cleaning leftover input
-        std::cin.clear();
-        input.clear();
+        clean_input();
+        std::cout << "\n > ";
+        getline(std::cin, raw_input);
+        lower(raw_input); // input has no point in being case-sensitive
+        distribute_input();
 
-        do
-        {
-            std::cout << "> ";
-            getline(std::cin, unprocessed_input);
-        } while (unprocessed_input == ""); // to exclude the possibility of empty input
-        
-        input << unprocessed_input;
-        input >> command;
-        lower(command); // non-case sensitivity
 
         if (command == "add")
         {
-            input >> arg1; // name
-            getline(input, arg2); // description
-            
             arg1 = arg1.substr(0, NAME_LIMIT);
-            arg2 = arg2.substr(1, DESC_LIMIT + 1); // since 1st symbol is always a whitespace
+            arg2 = arg2.substr(0, DESC_LIMIT);
             Task new_task(arg1, arg2);
             tasks.push_back(new_task);
 
@@ -71,9 +69,6 @@ int main()
 
         else if (command == "delete" || command == "remove")
         {
-            input >> arg1; // ID
-            lower(arg1); // non-case sensitivity
-
             if (arg1 == "all")
             {
                 tasks.clear();
@@ -111,9 +106,6 @@ int main()
                 continue;
             }
 
-            input >> arg1; // status to list
-            lower(arg1); // non-case sensitivity
-
             bool output_happened = false;
             for (int i = 0; i < tasks.size(); i++)
             {
@@ -133,12 +125,6 @@ int main()
 
         else if (command == "update")
         {
-            input >> arg1; // property
-            lower(arg1); // non-case sensitivity
-            input >> arg2; // ID
-            getline(input, arg3);  // new value
-            arg3.erase(0, 1);      // since 1st symbol is always a whitespace
-
             if (! is_num(arg2) || stoi(arg2) < 1)
             {
                 std::cout << textcolor(RED) << "Invalid ID!\n\n" << textcolor(WHITE);
@@ -171,4 +157,46 @@ int main()
     }
 
     return 0;
+}
+
+
+
+void clean_input()
+{
+    std::cin.clear();
+    for (int i = 0; i < INPUT_VAR_AMOUNT; i++)
+        input[i] = "";
+}
+
+
+
+void distribute_input() // IDEA: carry this over to 'task_tracker'
+{
+    std::stringstream input_stream(raw_input);
+    std::string word;
+    bool quote_marks_open = false;
+    int i = 0;
+
+    while (input_stream >> word && i < 4)
+    {
+        if (word[0] == '"') // start of a multi-word argument [MWA]
+        {
+            quote_marks_open = true;
+            input[i] += word.substr(1, word.size() - 1);
+            continue;
+        }
+
+        if (quote_marks_open)
+            input[i] += ' ' + word;
+        if (word[word.size() - 1] == '"') // last word in an MWA cascades through the previous 'if' to here
+        {
+            quote_marks_open = false;
+            input[i] = input[i].substr(0, input[i].size() - 1);
+            ++i;
+            continue;
+        }
+        
+        if (! quote_marks_open)
+            input[i++] += word;
+    }
 }

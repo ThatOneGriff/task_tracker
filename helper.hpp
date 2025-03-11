@@ -2,7 +2,6 @@
 #define HELPER_HPP
 
 #include <iomanip>
-#include <iostream>
 #include <string>
 #include <time.h>
 #include <windows.h>
