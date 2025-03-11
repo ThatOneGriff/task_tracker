@@ -1,10 +1,12 @@
 #ifndef SAVE_LOAD_HPP
 #define SAVE_LOAD_HPP
 
+#include <iostream>
 #include <fstream>
 #include <nlohmann/json.hpp>
 #include <vector>
 
+#include "helper.hpp"
 #include "task.hpp"
 using json = nlohmann::json;
 
@@ -29,6 +31,7 @@ std::vector<Task> load()
     tasks.reserve(data.size());
     for (const auto& element: data)
     {
+        // IDEA: a less fragile load system that avoids errors
         Task task(element["name"], element["desc"], element["status"], element["created_at"], element["updated_at"]);
         tasks.push_back(task);
     }
@@ -36,13 +39,13 @@ std::vector<Task> load()
     switch (tasks.size())
     {
     case 0:
-        std::cout << textcolor(YELLOW) << "No tasks loaded: data file '" << SAVE_PATH << "' is empty.\n\n" << textcolor(WHITE);
+        std::cout << textcolor(YELLOW) << "No tasks loaded: data file '" << SAVE_PATH << "' is empty.\n" << textcolor(WHITE);
         break;
     case 1:
-        std::cout << "1 task loaded.\n\n";
+        std::cout << "1 task loaded.\n";
         break;
     default:
-        std::cout << tasks.size() << " tasks loaded.\n\n";
+        std::cout << tasks.size() << " tasks loaded.\n";
         break;
     }
 

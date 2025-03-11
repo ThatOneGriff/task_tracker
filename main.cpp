@@ -10,6 +10,7 @@
 /* TODO
 - more detailed help text, with mention of quote marks
 - 'delete 1-5'
+- load system that can handle invalid files
 - list todo, in-progress
 - invalid data handling
 - dailies, due dates
@@ -53,6 +54,7 @@ int main()
         getline(std::cin, raw_input);
         lower(raw_input); // input has no point in being case-sensitive
         distribute_input();
+        std::cout << '\n';
 
 
         if (command == "add")

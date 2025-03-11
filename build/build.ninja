@@ -122,7 +122,7 @@ build libsave_load.a: CXX_STATIC_LIBRARY_LINKER__save_load_Release
 #############################################
 # Order-only phony target for task_tracker
 
-build cmake_object_order_depends_target_task_tracker: phony || cmake_object_order_depends_target_helper cmake_object_order_depends_target_task
+build cmake_object_order_depends_target_task_tracker: phony || cmake_object_order_depends_target_helper cmake_object_order_depends_target_save_load cmake_object_order_depends_target_task
 
 build CMakeFiles/task_tracker.dir/main.cpp.obj: CXX_COMPILER__task_tracker_unscanned_Release C$:/Users/Àðò¸ì/Documents/pet$ projects/task_tracker/main.cpp || cmake_object_order_depends_target_task_tracker
   DEP_FILE = CMakeFiles\task_tracker.dir\main.cpp.obj.d
@@ -139,9 +139,9 @@ build CMakeFiles/task_tracker.dir/main.cpp.obj: CXX_COMPILER__task_tracker_unsca
 #############################################
 # Link the executable task_tracker.exe
 
-build task_tracker.exe: CXX_EXECUTABLE_LINKER__task_tracker_Release CMakeFiles/task_tracker.dir/main.cpp.obj | libhelper.a libtask.a || libhelper.a libtask.a
+build task_tracker.exe: CXX_EXECUTABLE_LINKER__task_tracker_Release CMakeFiles/task_tracker.dir/main.cpp.obj | libhelper.a libtask.a libsave_load.a || libhelper.a libsave_load.a libtask.a
   FLAGS = -O3 -DNDEBUG
-  LINK_LIBRARIES = libhelper.a  libtask.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  LINK_LIBRARIES = libhelper.a  libtask.a  libsave_load.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\task_tracker.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
