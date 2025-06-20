@@ -1,9 +1,13 @@
 #ifndef TASK_HPP
 #define TASK_HPP
 
+#include <iostream>
 #include <nlohmann/json.hpp>
 #include <unordered_map>
+
+#include "helper.hpp"
 using json = nlohmann::json;
+
 
 
 const std::unordered_map<std::string, const int> task_statuses_and_colors =
