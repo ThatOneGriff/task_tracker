@@ -122,7 +122,7 @@ build libsave_load.a: CXX_STATIC_LIBRARY_LINKER__save_load_Release
 #############################################
 # Order-only phony target for task_tracker
 
-build cmake_object_order_depends_target_task_tracker: phony || cmake_object_order_depends_target_helper cmake_object_order_depends_target_save_load cmake_object_order_depends_target_task
+build cmake_object_order_depends_target_task_tracker: phony || cmake_object_order_depends_target_datetime cmake_object_order_depends_target_helper cmake_object_order_depends_target_save_load cmake_object_order_depends_target_strings cmake_object_order_depends_target_task
 
 build CMakeFiles/task_tracker.dir/main.cpp.obj: CXX_COMPILER__task_tracker_unscanned_Release C$:/Users/Àðò¸ì/Documents/pet$ projects/task_tracker/main.cpp || cmake_object_order_depends_target_task_tracker
   DEP_FILE = CMakeFiles\task_tracker.dir\main.cpp.obj.d
@@ -139,9 +139,9 @@ build CMakeFiles/task_tracker.dir/main.cpp.obj: CXX_COMPILER__task_tracker_unsca
 #############################################
 # Link the executable task_tracker.exe
 
-build task_tracker.exe: CXX_EXECUTABLE_LINKER__task_tracker_Release CMakeFiles/task_tracker.dir/main.cpp.obj | libhelper.a libtask.a libsave_load.a || libhelper.a libsave_load.a libtask.a
+build task_tracker.exe: CXX_EXECUTABLE_LINKER__task_tracker_Release CMakeFiles/task_tracker.dir/main.cpp.obj | libhelper.a libtask.a libsave_load.a helpers/libdatetime.a helpers/libstrings.a || helpers/libdatetime.a helpers/libstrings.a libhelper.a libsave_load.a libtask.a
   FLAGS = -O3 -DNDEBUG
-  LINK_LIBRARIES = libhelper.a  libtask.a  libsave_load.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  LINK_LIBRARIES = libhelper.a  libtask.a  libsave_load.a  helpers/libdatetime.a  helpers/libstrings.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\task_tracker.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
@@ -203,11 +203,98 @@ build include/nlohmann_json/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
 build include/nlohmann_json/rebuild_cache: phony include/nlohmann_json/CMakeFiles/rebuild_cache.util
 
 # =============================================================================
+# Write statements declared in CMakeLists.txt:
+# C:/Users/Àðò¸ì/Documents/pet projects/task_tracker/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target datetime
+
+
+#############################################
+# Order-only phony target for datetime
+
+build cmake_object_order_depends_target_datetime: phony || .
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target datetime
+
+
+#############################################
+# Link the static library helpers\libdatetime.a
+
+build helpers/libdatetime.a: CXX_STATIC_LIBRARY_LINKER__datetime_Release
+  LANGUAGE_COMPILE_FLAGS = -O3 -DNDEBUG
+  OBJECT_DIR = helpers\CMakeFiles\datetime.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = helpers\libdatetime.a
+  TARGET_PDB = datetime.a.dbg
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target strings
+
+
+#############################################
+# Order-only phony target for strings
+
+build cmake_object_order_depends_target_strings: phony || .
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target strings
+
+
+#############################################
+# Link the static library helpers\libstrings.a
+
+build helpers/libstrings.a: CXX_STATIC_LIBRARY_LINKER__strings_Release
+  LANGUAGE_COMPILE_FLAGS = -O3 -DNDEBUG
+  OBJECT_DIR = helpers\CMakeFiles\strings.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = helpers\libstrings.a
+  TARGET_PDB = strings.a.dbg
+
+
+#############################################
+# Utility command for edit_cache
+
+build helpers/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D "C:\Users\Àðò¸ì\Documents\pet projects\task_tracker\build\helpers" && "C:\Program Files\CMake\bin\cmake-gui.exe" -S"C:\Users\Àðò¸ì\Documents\pet projects\task_tracker" -B"C:\Users\Àðò¸ì\Documents\pet projects\task_tracker\build""
+  DESC = Running CMake cache editor...
+  pool = console
+  restat = 1
+
+build helpers/edit_cache: phony helpers/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build helpers/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D "C:\Users\Àðò¸ì\Documents\pet projects\task_tracker\build\helpers" && "C:\Program Files\CMake\bin\cmake.exe" --regenerate-during-build -S"C:\Users\Àðò¸ì\Documents\pet projects\task_tracker" -B"C:\Users\Àðò¸ì\Documents\pet projects\task_tracker\build""
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build helpers/rebuild_cache: phony helpers/CMakeFiles/rebuild_cache.util
+
+# =============================================================================
 # Target aliases.
+
+build datetime: phony helpers/libdatetime.a
 
 build helper: phony libhelper.a
 
+build libdatetime.a: phony helpers/libdatetime.a
+
+build libstrings.a: phony helpers/libstrings.a
+
 build save_load: phony libsave_load.a
+
+build strings: phony helpers/libstrings.a
 
 build task: phony libtask.a
 
@@ -221,7 +308,14 @@ build task_tracker: phony task_tracker.exe
 #############################################
 # Folder: C:/Users/Àðò¸ì/Documents/pet projects/task_tracker/build
 
-build all: phony libhelper.a libtask.a libsave_load.a task_tracker.exe include/nlohmann_json/all
+build all: phony libhelper.a libtask.a libsave_load.a task_tracker.exe include/nlohmann_json/all helpers/all
+
+# =============================================================================
+
+#############################################
+# Folder: C:/Users/Àðò¸ì/Documents/pet projects/task_tracker/build/helpers
+
+build helpers/all: phony helpers/libdatetime.a helpers/libstrings.a
 
 # =============================================================================
 
@@ -237,14 +331,14 @@ build include/nlohmann_json/all: phony
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | C$:/Program$ Files/CMake/share/cmake-3.31/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/CMakePackageConfigHelpers.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/CMakeRCInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Compiler/GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/ExternalProject.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/ExternalProject/shared_internal_commands.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/GNUInstallDirs.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Internal/CMakeCXXLinkerInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Internal/CMakeCommonLinkerInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Linker/GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Linker/GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Platform/Linker/GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Platform/Linker/Windows-GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Platform/Linker/Windows-GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Platform/Windows-GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Platform/Windows-Initialize.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Platform/Windows.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Platform/WindowsPaths.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/WriteBasicConfigVersionFile.cmake C$:/Users/Àðò¸ì/Documents/pet$ projects/task_tracker/CMakeLists.txt C$:/Users/Àðò¸ì/Documents/pet$ projects/task_tracker/include/nlohmann_json/CMakeLists.txt C$:/Users/Àðò¸ì/Documents/pet$ projects/task_tracker/include/nlohmann_json/cmake/config.cmake.in C$:/Users/Àðò¸ì/Documents/pet$ projects/task_tracker/include/nlohmann_json/cmake/nlohmann_jsonConfigVersion.cmake.in C$:/Users/Àðò¸ì/Documents/pet$ projects/task_tracker/include/nlohmann_json/cmake/pkg-config.pc.in CMakeCache.txt CMakeFiles/3.31.3/CMakeCXXCompiler.cmake CMakeFiles/3.31.3/CMakeRCCompiler.cmake CMakeFiles/3.31.3/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | C$:/Program$ Files/CMake/share/cmake-3.31/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/CMakePackageConfigHelpers.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/CMakeRCInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Compiler/GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/ExternalProject.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/ExternalProject/shared_internal_commands.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/GNUInstallDirs.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Internal/CMakeCXXLinkerInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Internal/CMakeCommonLinkerInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Linker/GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Linker/GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Platform/Linker/GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Platform/Linker/Windows-GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Platform/Linker/Windows-GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Platform/Windows-GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Platform/Windows-Initialize.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Platform/Windows.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Platform/WindowsPaths.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/WriteBasicConfigVersionFile.cmake C$:/Users/Àðò¸ì/Documents/pet$ projects/task_tracker/CMakeLists.txt C$:/Users/Àðò¸ì/Documents/pet$ projects/task_tracker/helpers/CMakeLists.txt C$:/Users/Àðò¸ì/Documents/pet$ projects/task_tracker/include/nlohmann_json/CMakeLists.txt C$:/Users/Àðò¸ì/Documents/pet$ projects/task_tracker/include/nlohmann_json/cmake/config.cmake.in C$:/Users/Àðò¸ì/Documents/pet$ projects/task_tracker/include/nlohmann_json/cmake/nlohmann_jsonConfigVersion.cmake.in C$:/Users/Àðò¸ì/Documents/pet$ projects/task_tracker/include/nlohmann_json/cmake/pkg-config.pc.in CMakeCache.txt CMakeFiles/3.31.3/CMakeCXXCompiler.cmake CMakeFiles/3.31.3/CMakeRCCompiler.cmake CMakeFiles/3.31.3/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build C$:/Program$ Files/CMake/share/cmake-3.31/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/CMakePackageConfigHelpers.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/CMakeRCInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Compiler/GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/ExternalProject.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/ExternalProject/shared_internal_commands.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/GNUInstallDirs.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Internal/CMakeCXXLinkerInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Internal/CMakeCommonLinkerInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Linker/GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Linker/GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Platform/Linker/GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Platform/Linker/Windows-GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Platform/Linker/Windows-GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Platform/Windows-GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Platform/Windows-Initialize.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Platform/Windows.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Platform/WindowsPaths.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/WriteBasicConfigVersionFile.cmake C$:/Users/Àðò¸ì/Documents/pet$ projects/task_tracker/CMakeLists.txt C$:/Users/Àðò¸ì/Documents/pet$ projects/task_tracker/include/nlohmann_json/CMakeLists.txt C$:/Users/Àðò¸ì/Documents/pet$ projects/task_tracker/include/nlohmann_json/cmake/config.cmake.in C$:/Users/Àðò¸ì/Documents/pet$ projects/task_tracker/include/nlohmann_json/cmake/nlohmann_jsonConfigVersion.cmake.in C$:/Users/Àðò¸ì/Documents/pet$ projects/task_tracker/include/nlohmann_json/cmake/pkg-config.pc.in CMakeCache.txt CMakeFiles/3.31.3/CMakeCXXCompiler.cmake CMakeFiles/3.31.3/CMakeRCCompiler.cmake CMakeFiles/3.31.3/CMakeSystem.cmake: phony
+build C$:/Program$ Files/CMake/share/cmake-3.31/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/CMakePackageConfigHelpers.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/CMakeRCInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Compiler/GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/ExternalProject.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/ExternalProject/shared_internal_commands.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/GNUInstallDirs.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Internal/CMakeCXXLinkerInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Internal/CMakeCommonLinkerInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Linker/GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Linker/GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Platform/Linker/GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Platform/Linker/Windows-GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Platform/Linker/Windows-GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Platform/Windows-GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Platform/Windows-Initialize.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Platform/Windows.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/Platform/WindowsPaths.cmake C$:/Program$ Files/CMake/share/cmake-3.31/Modules/WriteBasicConfigVersionFile.cmake C$:/Users/Àðò¸ì/Documents/pet$ projects/task_tracker/CMakeLists.txt C$:/Users/Àðò¸ì/Documents/pet$ projects/task_tracker/helpers/CMakeLists.txt C$:/Users/Àðò¸ì/Documents/pet$ projects/task_tracker/include/nlohmann_json/CMakeLists.txt C$:/Users/Àðò¸ì/Documents/pet$ projects/task_tracker/include/nlohmann_json/cmake/config.cmake.in C$:/Users/Àðò¸ì/Documents/pet$ projects/task_tracker/include/nlohmann_json/cmake/nlohmann_jsonConfigVersion.cmake.in C$:/Users/Àðò¸ì/Documents/pet$ projects/task_tracker/include/nlohmann_json/cmake/pkg-config.pc.in CMakeCache.txt CMakeFiles/3.31.3/CMakeCXXCompiler.cmake CMakeFiles/3.31.3/CMakeRCCompiler.cmake CMakeFiles/3.31.3/CMakeSystem.cmake: phony
 
 
 #############################################

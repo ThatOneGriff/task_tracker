@@ -74,5 +74,6 @@
         "stop_token": "cpp",
         "thread": "cpp",
         "semaphore": "cpp"
-    }
+    },
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools"
 }

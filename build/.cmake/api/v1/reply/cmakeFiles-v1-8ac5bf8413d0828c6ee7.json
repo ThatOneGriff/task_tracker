@@ -177,6 +177,9 @@
 		},
 		{
 			"path" : "include/nlohmann_json/cmake/config.cmake.in"
+		},
+		{
+			"path" : "helpers/CMakeLists.txt"
 		}
 	],
 	"kind" : "cmakeFiles",

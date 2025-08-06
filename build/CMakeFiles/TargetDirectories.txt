@@ -6,3 +6,7 @@ C:/Users/Артём/Documents/pet projects/task_tracker/build/CMakeFiles/edit_ca
 C:/Users/Артём/Documents/pet projects/task_tracker/build/CMakeFiles/rebuild_cache.dir
 C:/Users/Артём/Documents/pet projects/task_tracker/build/include/nlohmann_json/CMakeFiles/edit_cache.dir
 C:/Users/Артём/Documents/pet projects/task_tracker/build/include/nlohmann_json/CMakeFiles/rebuild_cache.dir
+C:/Users/Артём/Documents/pet projects/task_tracker/build/helpers/CMakeFiles/datetime.dir
+C:/Users/Артём/Documents/pet projects/task_tracker/build/helpers/CMakeFiles/strings.dir
+C:/Users/Артём/Documents/pet projects/task_tracker/build/helpers/CMakeFiles/edit_cache.dir
+C:/Users/Артём/Documents/pet projects/task_tracker/build/helpers/CMakeFiles/rebuild_cache.dir

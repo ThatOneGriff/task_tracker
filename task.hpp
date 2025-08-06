@@ -1,3 +1,4 @@
+#pragma once
 #ifndef TASK_HPP
 #define TASK_HPP
 
@@ -29,7 +30,7 @@ public:
         {"status", "todo"}
     };
 
-    // Operators = and == are needed for erasing a task out of 'tasks' vector.
+    /// Operators = and == are needed for erasing a task out of 'tasks' vector.
     bool operator==(Task task2)
     {
         if (updatable_properties == task2.updatable_properties &&
@@ -51,7 +52,7 @@ public:
     }
 
 
-    // for console-created tasks
+    /// for console-created tasks
     Task(const std::string& _name, const std::string& _desc)
     : created_at(get_cur_date_time())
     {
@@ -60,7 +61,7 @@ public:
     }
 
 
-    // for loaded tasks
+    /// for loaded tasks
     Task(const std::string& _name, const std::string& _desc, const std::string& _status, const std::string& _created_at, const std::string& _updated_at)
     : created_at(_created_at), updated_at(_updated_at)
     {
@@ -96,7 +97,7 @@ public:
     }
 
 
-    bool update(const std::string& property, std::string& new_value) // 'update()' also returns whether anything has been updated
+    bool update(const std::string& property, std::string& new_value) /// 'update()' also returns whether anything has been updated
     {
         if (updatable_properties.find(property) == updatable_properties.end())
         {
@@ -104,7 +105,7 @@ public:
             return false;
         }
         
-        // value preparation
+        /// value preparation
         if (property == "name")
             new_value = new_value.substr(0, NAME_LIMIT);
         else if (property == "desc")
@@ -120,14 +121,14 @@ public:
             }
         }
 
-        // checking for false editing
+        /// checking for false editing
         if (updatable_properties[property] == new_value)
         {
             std::cout << textcolor(YELLOW) << "No changes have taken place: value is the same!" << textcolor(WHITE);
             return false;
         }
 
-        // updating
+        /// updating
         updatable_properties[property] = new_value;
         updated_at = get_cur_date_time();
         std::cout << textcolor(GREEN) << "Update successful!" << textcolor(WHITE);

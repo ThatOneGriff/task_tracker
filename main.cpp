@@ -8,6 +8,11 @@
 
 
 /* TODO
+- include scheme
+- wstring
+- dynamic character limiting
+- find a way to implement regions into code
+
 - more detailed help text, with mention of quote marks
 - 'delete 1-5'
 - load system that can handle invalid files
@@ -31,7 +36,7 @@ void distribute_input();
 
 std::string raw_input;
 
-const int INPUT_VAR_AMOUNT = 4; // 1 command, 3 args
+const int INPUT_VAR_AMOUNT = 4; /// 1 command, 3 args
 std::string input[INPUT_VAR_AMOUNT];
 #define command input[0]
 #define arg1    input[1]
@@ -44,15 +49,15 @@ int main()
     std::cout << " === Task Tracker (type 'help' to list all commands) ===\n\n";
     std::vector<Task> tasks = load();
     
-    // Note: minimal ID of a task IN THE INTERFACE is 1,
-    // however, they're still stored in a vector,
-    // thus have a FACTUAL, IN-CODE minimal index of 0.
+    /// NOTE: minimal ID of a task IN THE INTERFACE is 1,
+    /// however, they're still stored in a vector,
+    /// thus have a FACTUAL, IN-CODE minimal index of 0.
     while(true)
     {
         clean_input();
         std::cout << "\n > ";
         getline(std::cin, raw_input);
-        lower(raw_input); // input has no point in being case-sensitive
+        lower(raw_input); /// input has no point in being case-sensitive
         distribute_input();
         std::cout << '\n';
 
@@ -137,11 +142,11 @@ int main()
                 continue;
             }
             
-            // if update didn't take place
-            if (! tasks[stoi(arg2)-1].update(arg1, arg3)) // 'update()' function returns whether anything has been updated
+            /// if update didn't take place
+            if (! tasks[stoi(arg2)-1].update(arg1, arg3)) /// 'update()' function returns whether anything has been updated
             {
                 std::cout << "\n\n";
-                continue; // No warning message since it's all handled by the 'Task' class
+                continue; /// No warning message since it's all handled by the 'Task' class
             }
         }
 
@@ -154,7 +159,7 @@ int main()
 
 
         std::cout << "\n\n";
-        save(tasks); // only reached when changes truly happened
+        save(tasks); /// only reached when changes truly happened
     }
 
     return 0;
@@ -180,7 +185,7 @@ void distribute_input()
 
     while (input_stream >> word && i < 4)
     {
-        if (word[0] == '"') // start of a multi-word argument [MWA]
+        if (word[0] == '"') /// start of a multi-word argument [MWA]
         {
             quote_marks_open = true;
             input[i] += word.substr(1, word.size() - 1);
@@ -189,7 +194,7 @@ void distribute_input()
 
         if (quote_marks_open)
             input[i] += ' ' + word;
-        if (word[word.size() - 1] == '"') // last word in an [MWA] cascades through the previous 'if' to here
+        if (word[word.size() - 1] == '"') /// last word in an [MWA] cascades through the previous 'if' to here
         {
             quote_marks_open = false;
             input[i] = input[i].substr(0, input[i].size() - 1);

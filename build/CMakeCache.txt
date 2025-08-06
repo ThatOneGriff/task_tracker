@@ -348,13 +348,13 @@ nlohmann_json_IS_TOP_LEVEL:STATIC=OFF
 nlohmann_json_SOURCE_DIR:STATIC=C:/Users/Артём/Documents/pet projects/task_tracker/include/nlohmann_json
 
 //Value Computed by CMake
-task_tracker_BINARY_DIR:STATIC=C:/Users/Артём/Documents/pet projects/task_tracker/build
+task_tracker_BINARY_DIR:STATIC=C:/Users/Артём/Documents/pet projects/task_tracker/build/helpers
 
 //Value Computed by CMake
-task_tracker_IS_TOP_LEVEL:STATIC=ON
+task_tracker_IS_TOP_LEVEL:STATIC=OFF
 
 //Value Computed by CMake
-task_tracker_SOURCE_DIR:STATIC=C:/Users/Артём/Documents/pet projects/task_tracker
+task_tracker_SOURCE_DIR:STATIC=C:/Users/Артём/Documents/pet projects/task_tracker/helpers
 
 
 ########################
@@ -495,7 +495,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=2
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=3
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

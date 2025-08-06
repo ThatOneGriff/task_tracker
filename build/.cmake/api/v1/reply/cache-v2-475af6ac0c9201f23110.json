@@ -1067,7 +1067,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "2"
+			"value" : "3"
 		},
 		{
 			"name" : "CMAKE_OBJCOPY",
@@ -1851,7 +1851,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/\u0410\u0440\u0442\u0451\u043c/Documents/pet projects/task_tracker/build"
+			"value" : "C:/Users/\u0410\u0440\u0442\u0451\u043c/Documents/pet projects/task_tracker/build/helpers"
 		},
 		{
 			"name" : "task_tracker_IS_TOP_LEVEL",
@@ -1863,7 +1863,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "ON"
+			"value" : "OFF"
 		},
 		{
 			"name" : "task_tracker_SOURCE_DIR",
@@ -1875,7 +1875,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/\u0410\u0440\u0442\u0451\u043c/Documents/pet projects/task_tracker"
+			"value" : "C:/Users/\u0410\u0440\u0442\u0451\u043c/Documents/pet projects/task_tracker/helpers"
 		}
 	],
 	"kind" : "cache",

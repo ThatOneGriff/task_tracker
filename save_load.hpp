@@ -1,3 +1,4 @@
+#pragma once
 #ifndef SAVE_LOAD_HPP
 #define SAVE_LOAD_HPP
 

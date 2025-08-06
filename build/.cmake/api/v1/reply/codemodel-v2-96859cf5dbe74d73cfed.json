@@ -8,7 +8,8 @@
 					"build" : ".",
 					"childIndexes" : 
 					[
-						1
+						1,
+						2
 					],
 					"jsonFile" : "directory-.-Release-d0094a50bb2071803777.json",
 					"minimumCMakeVersion" : 
@@ -19,10 +20,10 @@
 					"source" : ".",
 					"targetIndexes" : 
 					[
-						0,
 						1,
 						2,
-						3
+						4,
+						5
 					]
 				},
 				{
@@ -35,6 +36,22 @@
 					"parentIndex" : 0,
 					"projectIndex" : 1,
 					"source" : "include/nlohmann_json"
+				},
+				{
+					"build" : "helpers",
+					"jsonFile" : "directory-helpers-Release-f930295aa4c0e33ba492.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "helpers",
+					"targetIndexes" : 
+					[
+						0,
+						3
+					]
 				}
 			],
 			"name" : "Release",
@@ -47,7 +64,8 @@
 					],
 					"directoryIndexes" : 
 					[
-						0
+						0,
+						2
 					],
 					"name" : "task_tracker",
 					"targetIndexes" : 
@@ -55,7 +73,9 @@
 						0,
 						1,
 						2,
-						3
+						3,
+						4,
+						5
 					]
 				},
 				{
@@ -70,30 +90,44 @@
 			"targets" : 
 			[
 				{
+					"directoryIndex" : 2,
+					"id" : "datetime::@a7387cdb12bc308fde33",
+					"jsonFile" : "target-datetime-Release-e5a92a46a9b41b444627.json",
+					"name" : "datetime",
+					"projectIndex" : 0
+				},
+				{
 					"directoryIndex" : 0,
 					"id" : "helper::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-helper-Release-f6828529a6c7526be7e4.json",
+					"jsonFile" : "target-helper-Release-c07719204f4ea98e7efe.json",
 					"name" : "helper",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "save_load::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-save_load-Release-4b565bc9ebb3f50d6c1e.json",
+					"jsonFile" : "target-save_load-Release-266f145acc09fa305aa3.json",
 					"name" : "save_load",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "strings::@a7387cdb12bc308fde33",
+					"jsonFile" : "target-strings-Release-fb8012c9749db5e2fc94.json",
+					"name" : "strings",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "task::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-task-Release-0769beb9c83570383d0b.json",
+					"jsonFile" : "target-task-Release-70703f823d3dc85cc793.json",
 					"name" : "task",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "task_tracker::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-task_tracker-Release-bcb0dbe289289784e47b.json",
+					"jsonFile" : "target-task_tracker-Release-cca042f3377c87c0c736.json",
 					"name" : "task_tracker",
 					"projectIndex" : 0
 				}

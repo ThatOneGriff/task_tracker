@@ -28,13 +28,13 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 18,
+				"line" : 19,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 19,
+				"line" : 20,
 				"parent" : 0
 			}
 		]
@@ -74,6 +74,10 @@
 	[
 		{
 			"backtrace" : 2,
+			"id" : "helper::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 2,
 			"id" : "task::@6890427a1f51a3e7e1df"
 		},
 		{
@@ -82,7 +86,11 @@
 		},
 		{
 			"backtrace" : 2,
-			"id" : "helper::@6890427a1f51a3e7e1df"
+			"id" : "strings::@a7387cdb12bc308fde33"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "datetime::@a7387cdb12bc308fde33"
 		}
 	],
 	"id" : "task_tracker::@6890427a1f51a3e7e1df",
@@ -111,6 +119,16 @@
 			{
 				"backtrace" : 2,
 				"fragment" : "libsave_load.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "helpers\\libdatetime.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "helpers\\libstrings.a",
 				"role" : "libraries"
 			},
 			{

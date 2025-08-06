@@ -6,7 +6,7 @@ This project got me to make a simple task tracking tool. I took the idea from he
 
 One of the rules said not to use any external dependencies, but I decided to break it for the self-ed sake.
 
-Huge credit to nlohmann! Link to his amazing JSON library: https://github.com/nlohmann/json
+Huge credit to Niel Lohmann! Link to his amazing JSON library: https://github.com/nlohmann/json
 
 ## Why this project matters
 
@@ -14,4 +14,4 @@ Huge credit to nlohmann! Link to his amazing JSON library: https://github.com/nl
 - It taught me to use external dependencies in C++ projects;
 - It gave me practice in debug and problem-solving.
 
-The build instructions may come later. It's not a project I planned for someone to build, because it breaks the rule I mentioned before, and thus cannot compete among similar projects on roadmap.sh.
+The build instructions may come later. It's not a project I planned for someone to build, because it breaks the aforementioned rule, and thus cannot compete among similar projects on roadmap.sh.
