@@ -21,7 +21,7 @@ std::vector<Task> load()
     std::ifstream f(SAVE_PATH);
     if (f.peek() == std::ifstream::traits_type::eof())
     {
-        show_warning("No tasks loaded: data file '" + SAVE_PATH + "' not found.\n");
+        show_warning("No tasks loaded: data file '" + SAVE_PATH + "' not found.");
         f.close();
         return tasks;
     }
@@ -40,13 +40,13 @@ std::vector<Task> load()
     switch (tasks.size())
     {
     case 0:
-        show_warning("No tasks loaded: data file '" + SAVE_PATH + "' is empty.\n");
+        show_warning("No tasks loaded: data file '" + SAVE_PATH + "' is empty.");
         break;
     case 1:
-        std::cout << "1 task loaded.\n";
+        std::cout << "1 task loaded.";
         break;
     default:
-        std::cout << tasks.size() << " tasks loaded.\n";
+        std::cout << tasks.size() << " tasks loaded.";
         break;
     }
 

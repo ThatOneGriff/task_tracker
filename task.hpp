@@ -89,7 +89,7 @@ public:
 
     void output(const int id)
     {
-        std::cout << "=== "            << updatable_properties["name"]   << " [ID: " << id << "]\n\n"
+        std::cout << "=== "            << updatable_properties["name"]   << " [ID: " << id << "]\n"
                   <<                      updatable_properties["desc"]   << '\n'
                   << " - Status: "
                     << textcolor(color_code_by_status.at(updatable_properties["status"]))

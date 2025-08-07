@@ -15,19 +15,18 @@
 
 - more detailed help text, with mention of quote marks
 - 'delete 1-5'
-- load system that can handle invalid files
-- list todo, in-progress
+- loading system that can handle invalid files
+- "list todo, in-progress"
 - invalid data handling
 - dailies, due dates
 - add build instructions to 'readme.md'
-- make the project fine with moving into different folders
 */
 
 /* IDEAS
 - 'done' auto-deletion => settings
 - activity overview
 - settings
-- storing saved data anywhere => handling absolute paths
+- storing saved data anywhere => handling absolute paths => make the project fine with moving into different folders
 */
 
 
@@ -55,7 +54,7 @@ int main()
     while(true)
     {
         clean_input();
-        std::cout << "\n > ";
+        std::cout << "\n\n > ";
         getline(std::cin, raw_input);
         lower(raw_input); /// input has no point in being case-sensitive
         distribute_input();
@@ -69,7 +68,7 @@ int main()
             Task new_task(arg1, arg2);
             tasks.push_back(new_task);
 
-            show_info("Task created successfully [ID: " + std::to_string(tasks.size()) + "]. \n\n");
+            show_info("Task created successfully [ID: " + std::to_string(tasks.size()) + "].");
         }
 
 
@@ -78,28 +77,28 @@ int main()
             if (arg1 == "all")
             {
                 tasks.clear();
-                show_info("All tasks cleared! \n\n");
+                show_info("All tasks cleared!");
                 continue;
             }
             else if (! is_num(arg1) || stoi(arg1) < 1)
             {
-                show_error("Invalid ID! \n\n");
+                show_error("Invalid ID!");
                 continue;
             }
             else if (stoi(arg1) > tasks.size())
             {
-                show_warning("No tasks of ID " + arg1 + "! \n\n");
+                show_warning("No tasks of ID " + arg1 + '!');
                 continue;
             }
 
             tasks.erase(tasks.begin() + stoi(arg1)-1);
-            show_info("Task deleted successfully! \n\n");
+            show_info("Task deleted successfully!");
         }
 
         // TODO: check '\n's
         else if (command == "help")
         {
-            std::cout << '\n' << HELP_TEXT << "\n\n";
+            std::cout << HELP_TEXT;
             continue;
         }
         
@@ -108,7 +107,7 @@ int main()
         {
             if (tasks.size() == 0)
             {
-                show_warning("Task list is empty! \n\n");
+                show_warning("Task list is empty!");
                 continue;
             }
 
@@ -117,14 +116,16 @@ int main()
             {
                 if ((arg1 == "all") || (tasks[i].updatable_properties["status"] == arg1))
                 {
+                    /// Proper separation of tasks (just in between)
+                    if (output_happened)
+                        std::cout << "\n\n";
                     output_happened = true;
                     tasks[i].output(i+1);
-                    std::cout << "\n\n";
                 }
             }
 
             if (! output_happened)
-                show_warning("No tasks with such status! \n\n");
+                show_warning("No tasks with such status!");
             continue;
         }
 
@@ -133,32 +134,27 @@ int main()
         {
             if (! is_num(arg2) || stoi(arg2) < 1)
             {
-                show_error("Invalid ID! \n\n");
+                show_error("Invalid ID!");
                 continue;
             }
             else if (stoi(arg2) > tasks.size())
             {
-                show_warning("No tasks of ID " + arg2 + "! \n\n");
+                show_warning("No tasks of ID " + arg2 + '!');
                 continue;
             }
             
             /// Update didn't take place
             if (! tasks[stoi(arg2)-1].update(arg1, arg3)) /// 'update()' function returns whether anything has been updated
-            {
-                std::cout << "\n\n"; // TODO: '\n
                 continue; /// No warning message since it's all handled by the 'Task' class
-            }
         }
 
 
         else
         {
-            show_error("Unknown command! \n\n");
+            show_error("Unknown command!");
             continue;
         }
 
-
-        std::cout << "\n\n";
         save(tasks); /// only reached when changes truly happened
     }
 
