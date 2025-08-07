@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <nlohmann/json.hpp>
+#include <string>
 #include <unordered_map>
 
 #include "helper.hpp"
@@ -11,11 +12,12 @@ using json = nlohmann::json;
 
 
 
-const std::unordered_map<std::string, (*void)(const short int)> color_by_status =
+const std::unordered_map<std::string, const int> color_code_by_status =
 {
-    {"todo",        GRAY},
-    {"in-progress", YELLOW},
-    {"done",        GREEN}
+    {"todo",        8}, /* GRAY */
+    {"in-progress", 6}, /* YELLOW */
+    {"done",        2}  /* GREEN */
+    /// Colors done by 'int's due to new text coloring system.
 };
 
 
@@ -90,7 +92,7 @@ public:
         std::cout << "=== "            << updatable_properties["name"]   << " [ID: " << id << "]\n\n"
                   <<                      updatable_properties["desc"]   << '\n'
                   << " - Status: "
-                    << color_by_status.at(updatable_properties["status"])
+                    << textcolor(color_code_by_status.at(updatable_properties["status"]))
                     << updatable_properties["status"] << '\n'
                     << WHITE
                   << " - Created at: " << created_at  << '\n'
@@ -115,7 +117,7 @@ public:
         {
             new_value = new_value.substr(0, STATUS_LIMIT);
             lower(new_value);
-            if (task_statuses_and_colors.find(new_value) == task_statuses_and_colors.end())
+            if (color_code_by_status.find(new_value) == color_code_by_status.end())
             {
                 show_error("Invalid status!");
                 return false;

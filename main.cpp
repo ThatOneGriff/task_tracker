@@ -1,5 +1,6 @@
 #include <iostream>
 #include <sstream>
+#include <string>
 #include <vector>
 
 #include "helper.hpp"
@@ -68,7 +69,7 @@ int main()
             Task new_task(arg1, arg2);
             tasks.push_back(new_task);
 
-            show_info("Task created successfully [ID: " + to_string(tasks.size()) + "]. \n\n");
+            show_info("Task created successfully [ID: " + std::to_string(tasks.size()) + "]. \n\n");
         }
 
 
@@ -87,7 +88,7 @@ int main()
             }
             else if (stoi(arg1) > tasks.size())
             {
-                show_warning("No tasks of ID " + to_string(arg1) + "! \n\n");
+                show_warning("No tasks of ID " + arg1 + "! \n\n");
                 continue;
             }
 
@@ -137,7 +138,7 @@ int main()
             }
             else if (stoi(arg2) > tasks.size())
             {
-                show_warning("No tasks of ID " + to_string(arg2) + "! \n\n");
+                show_warning("No tasks of ID " + arg2 + "! \n\n");
                 continue;
             }
             

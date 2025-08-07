@@ -17,7 +17,7 @@ const std::string HELP_TEXT = " = List of commands =\n - add [name (1 word)] [de
 void show_info(const std::string& info_text);
 void show_error(const std::string& error_text);
 void show_warning(const std::string& warning_text);
-std::string textcolor(const int color_code);
+std::string textcolor(const short int color_code);
 
 
 /// Color: GREEN. Defaults to white.
