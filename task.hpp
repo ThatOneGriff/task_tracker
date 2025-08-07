@@ -11,7 +11,7 @@ using json = nlohmann::json;
 
 
 
-const std::unordered_map<std::string, const int> task_statuses_and_colors =
+const std::unordered_map<std::string, (*void)(const short int)> color_by_status =
 {
     {"todo",        GRAY},
     {"in-progress", YELLOW},
@@ -35,7 +35,8 @@ public:
     {
         if (updatable_properties == task2.updatable_properties &&
             created_at           == task2.created_at           &&
-            updated_at           == task2.updated_at)     return true;
+            updated_at           == task2.updated_at)
+            return true;
         return false;
     }
 
@@ -89,10 +90,10 @@ public:
         std::cout << "=== "            << updatable_properties["name"]   << " [ID: " << id << "]\n\n"
                   <<                      updatable_properties["desc"]   << '\n'
                   << " - Status: "
-                    << textcolor(task_statuses_and_colors.at(updatable_properties["status"])) /* coloring status in its predetermined color */
+                    << color_by_status.at(updatable_properties["status"])
                     << updatable_properties["status"] << '\n'
-                    << textcolor(WHITE)
-                  << " - Created at: " << created_at                     << '\n'
+                    << WHITE
+                  << " - Created at: " << created_at  << '\n'
                   << " - Updated at: " << updated_at;
     }
 
@@ -101,7 +102,7 @@ public:
     {
         if (updatable_properties.find(property) == updatable_properties.end())
         {
-            std::cout << textcolor(RED) << "Task property '" << property << "' doesn't exist or is not updatable!" << textcolor(WHITE);
+            show_error("Task property '" + property + "' doesn't exist or is not updatable!");
             return false;
         }
         
@@ -116,7 +117,7 @@ public:
             lower(new_value);
             if (task_statuses_and_colors.find(new_value) == task_statuses_and_colors.end())
             {
-                std::cout << textcolor(RED) << "Invalid status!" << textcolor(WHITE);
+                show_error("Invalid status!");
                 return false;
             }
         }
@@ -124,14 +125,14 @@ public:
         /// checking for false editing
         if (updatable_properties[property] == new_value)
         {
-            std::cout << textcolor(YELLOW) << "No changes have taken place: value is the same!" << textcolor(WHITE);
+            show_warning("No changes have taken place: value is the same!");
             return false;
         }
 
         /// updating
         updatable_properties[property] = new_value;
         updated_at = get_cur_date_time();
-        std::cout << textcolor(GREEN) << "Update successful!" << textcolor(WHITE);
+        show_info("Update successful!");
         return true;
     }
 

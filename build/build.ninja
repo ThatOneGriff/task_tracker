@@ -257,6 +257,31 @@ build helpers/libstrings.a: CXX_STATIC_LIBRARY_LINKER__strings_Release
   TARGET_FILE = helpers\libstrings.a
   TARGET_PDB = strings.a.dbg
 
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target ui
+
+
+#############################################
+# Order-only phony target for ui
+
+build cmake_object_order_depends_target_ui: phony || .
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target ui
+
+
+#############################################
+# Link the static library helpers\libui.a
+
+build helpers/libui.a: CXX_STATIC_LIBRARY_LINKER__ui_Release
+  LANGUAGE_COMPILE_FLAGS = -O3 -DNDEBUG
+  OBJECT_DIR = helpers\CMakeFiles\ui.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = helpers\libui.a
+  TARGET_PDB = ui.a.dbg
+
 
 #############################################
 # Utility command for edit_cache
@@ -292,6 +317,8 @@ build libdatetime.a: phony helpers/libdatetime.a
 
 build libstrings.a: phony helpers/libstrings.a
 
+build libui.a: phony helpers/libui.a
+
 build save_load: phony libsave_load.a
 
 build strings: phony helpers/libstrings.a
@@ -299,6 +326,8 @@ build strings: phony helpers/libstrings.a
 build task: phony libtask.a
 
 build task_tracker: phony task_tracker.exe
+
+build ui: phony helpers/libui.a
 
 # =============================================================================
 # Folder targets.
@@ -315,7 +344,7 @@ build all: phony libhelper.a libtask.a libsave_load.a task_tracker.exe include/n
 #############################################
 # Folder: C:/Users/Àðò¸ì/Documents/pet projects/task_tracker/build/helpers
 
-build helpers/all: phony helpers/libdatetime.a helpers/libstrings.a
+build helpers/all: phony helpers/libdatetime.a helpers/libstrings.a helpers/libui.a
 
 # =============================================================================
 

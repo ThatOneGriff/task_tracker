@@ -7,10 +7,10 @@
 
 
 /* TODO
-- include scheme
+- standardize newlines after text
+- delete by full & partial name
 - wstring
 - dynamic character limiting
-- find a way to implement regions into code
 
 - more detailed help text, with mention of quote marks
 - 'delete 1-5'
@@ -45,7 +45,7 @@ std::string input[INPUT_VAR_AMOUNT];
 
 int main()
 {
-    std::cout << " === Task Tracker (type 'help' to list all commands) ===\n\n";
+    std::cout << " === Task Tracker (type 'help' to list all commands) === \n\n";
     std::vector<Task> tasks = load();
     
     /// NOTE: minimal ID of a task IN THE INTERFACE is 1,
@@ -68,7 +68,7 @@ int main()
             Task new_task(arg1, arg2);
             tasks.push_back(new_task);
 
-            std::cout << textcolor(GREEN) << "Task created successfully [ID: " << tasks.size() << "]." << textcolor(WHITE);
+            show_info("Task created successfully [ID: " + to_string(tasks.size()) + "]. \n\n");
         }
 
 
@@ -77,25 +77,25 @@ int main()
             if (arg1 == "all")
             {
                 tasks.clear();
-                std::cout << textcolor(GREEN) << "All tasks cleared!\n\n" << textcolor(WHITE);
+                show_info("All tasks cleared! \n\n");
                 continue;
             }
-            if (! is_num(arg1) || stoi(arg1) < 1)
+            else if (! is_num(arg1) || stoi(arg1) < 1)
             {
-                std::cout << textcolor(RED) << "Invalid ID!\n\n" << textcolor(WHITE);
+                show_error("Invalid ID! \n\n");
                 continue;
             }
-            if (stoi(arg1) > tasks.size())
+            else if (stoi(arg1) > tasks.size())
             {
-                std::cout << textcolor(YELLOW) << "No tasks of ID " << arg1 << "!\n\n" << textcolor(WHITE);
+                show_warning("No tasks of ID " + to_string(arg1) + "! \n\n");
                 continue;
             }
 
             tasks.erase(tasks.begin() + stoi(arg1)-1);
-            std::cout << textcolor(GREEN) << "Task deleted successfully!" << textcolor(WHITE);
+            show_info("Task deleted successfully! \n\n");
         }
 
-
+        // TODO: check '\n's
         else if (command == "help")
         {
             std::cout << '\n' << HELP_TEXT << "\n\n";
@@ -107,7 +107,7 @@ int main()
         {
             if (tasks.size() == 0)
             {
-                std::cout << textcolor(YELLOW) << "Task list is empty!\n\n" << textcolor(WHITE);
+                show_warning("Task list is empty! \n\n");
                 continue;
             }
 
@@ -123,7 +123,7 @@ int main()
             }
 
             if (! output_happened)
-                std::cout << textcolor(YELLOW) << "No tasks with such status!\n\n" << textcolor(WHITE);
+                show_warning("No tasks with such status! \n\n");
             continue;
         }
 
@@ -132,19 +132,19 @@ int main()
         {
             if (! is_num(arg2) || stoi(arg2) < 1)
             {
-                std::cout << textcolor(RED) << "Invalid ID!\n\n" << textcolor(WHITE);
+                show_error("Invalid ID! \n\n");
                 continue;
             }
-            if (stoi(arg2) > tasks.size())
+            else if (stoi(arg2) > tasks.size())
             {
-                std::cout << textcolor(YELLOW) << "No tasks of ID " << arg2 << "!\n\n" << textcolor(WHITE);
+                show_warning("No tasks of ID " + to_string(arg2) + "! \n\n");
                 continue;
             }
             
-            /// if update didn't take place
+            /// Update didn't take place
             if (! tasks[stoi(arg2)-1].update(arg1, arg3)) /// 'update()' function returns whether anything has been updated
             {
-                std::cout << "\n\n";
+                std::cout << "\n\n"; // TODO: '\n
                 continue; /// No warning message since it's all handled by the 'Task' class
             }
         }
@@ -152,7 +152,7 @@ int main()
 
         else
         {
-            std::cout << textcolor(RED) << "Unknown command!\n\n" << textcolor(WHITE);
+            show_error("Unknown command! \n\n");
             continue;
         }
 

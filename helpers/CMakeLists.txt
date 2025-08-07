@@ -7,4 +7,5 @@ project(task_tracker VERSION 1.0 LANGUAGES CXX)
 # headers
 add_library(datetime    STATIC datetime.hpp)
 add_library(strings     STATIC strings.hpp)
-set_property(TARGET datetime strings PROPERTY LINKER_LANGUAGE CXX)
+add_library(ui          STATIC ui.hpp)
+set_property(TARGET datetime strings ui PROPERTY LINKER_LANGUAGE CXX)
