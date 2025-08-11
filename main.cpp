@@ -8,7 +8,6 @@
 
 
 /* TODO
-- standardize newlines after text
 - delete by full & partial name
 - wstring
 - dynamic character limiting
@@ -23,9 +22,9 @@
 */
 
 /* IDEAS
-- 'done' auto-deletion => settings
-- activity overview
 - settings
+-'done' auto-deletion => settings
+- activity overview
 - storing saved data anywhere => handling absolute paths => make the project fine with moving into different folders
 */
 
@@ -94,13 +93,6 @@ int main()
             tasks.erase(tasks.begin() + stoi(arg1)-1);
             show_info("Task deleted successfully!");
         }
-
-        // TODO: check '\n's
-        else if (command == "help")
-        {
-            std::cout << HELP_TEXT;
-            continue;
-        }
         
 
         else if (command == "list")
@@ -146,6 +138,19 @@ int main()
             /// Update didn't take place
             if (! tasks[stoi(arg2)-1].update(arg1, arg3)) /// 'update()' function returns whether anything has been updated
                 continue; /// No warning message since it's all handled by the 'Task' class
+        }
+
+
+        // TODO: check '\n's
+        else if (command == "help")
+        {
+            if (arg1 == "")
+                std::cout << HELP_TEXT;
+            else if (DETAILED_HELP.find(arg1) == DETAILED_HELP.end())
+                show_warning("Command '" + arg1 + "' doesn't exist.");
+            else
+                std::cout << DETAILED_HELP.at(arg1);
+            continue;
         }
 
 
