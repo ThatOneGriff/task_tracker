@@ -12,12 +12,11 @@
 - wstring
 - dynamic character limiting
 
-- more detailed help text, with mention of quote marks
 - 'delete 1-5'
 - loading system that can handle invalid files
-- "list todo, in-progress"
-- invalid data handling
+- invalid input handling
 - dailies, due dates
+- 'list todo, in-progress'
 - add build instructions to 'readme.md'
 */
 
