@@ -23,7 +23,6 @@
 /* IDEAS
 - settings
 -'done' auto-deletion => settings
-- activity overview
 - storing saved data anywhere => handling absolute paths => make the project fine with moving into different folders
 */
 
