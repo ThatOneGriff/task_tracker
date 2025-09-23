@@ -32,7 +32,7 @@ void distribute_input();
 
 std::string raw_input;
 
-const int INPUT_VAR_AMOUNT = 4; /// 1 command, 3 args
+const unsigned int INPUT_VAR_AMOUNT = 4; /// 1 command, 3 args
 std::string input[INPUT_VAR_AMOUNT];
 #define command input[0]
 #define arg1    input[1]
