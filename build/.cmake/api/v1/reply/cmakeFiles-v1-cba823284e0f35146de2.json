@@ -185,8 +185,8 @@
 	"kind" : "cmakeFiles",
 	"paths" : 
 	{
-		"build" : "C:/Users/\u0410\u0440\u0442\u0451\u043c/Documents/pet projects/task_tracker/build",
-		"source" : "C:/Users/\u0410\u0440\u0442\u0451\u043c/Documents/pet projects/task_tracker"
+		"build" : "C:/pet projects/task_tracker/build",
+		"source" : "C:/pet projects/task_tracker"
 	},
 	"version" : 
 	{

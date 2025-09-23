@@ -52,7 +52,7 @@
 			[
 				{
 					"backtrace" : 2,
-					"path" : "C:/Users/\u0410\u0440\u0442\u0451\u043c/Documents/pet projects/task_tracker/include/nlohmann_json/include"
+					"path" : "C:/pet projects/task_tracker/include/nlohmann_json/include"
 				}
 			],
 			"language" : "CXX",
@@ -86,11 +86,11 @@
 		},
 		{
 			"backtrace" : 2,
-			"id" : "strings::@a7387cdb12bc308fde33"
+			"id" : "datetime::@a7387cdb12bc308fde33"
 		},
 		{
 			"backtrace" : 2,
-			"id" : "datetime::@a7387cdb12bc308fde33"
+			"id" : "strings::@a7387cdb12bc308fde33"
 		}
 	],
 	"id" : "task_tracker::@6890427a1f51a3e7e1df",

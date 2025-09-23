@@ -1,8 +1,8 @@
 [
 {
-  "directory": "C:/Users/Артём/Documents/pet projects/task_tracker/build",
-  "command": "C:\\TDM-GCC-64\\bin\\c++.exe -I\"C:/Users/Артём/Documents/pet projects/task_tracker/include/nlohmann_json/include\" -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles\\task_tracker.dir\\main.cpp.obj -c \"C:\\Users\\Артём\\Documents\\pet projects\\task_tracker\\main.cpp\"",
-  "file": "C:\\Users\\Артём\\Documents\\pet projects\\task_tracker\\main.cpp",
+  "directory": "C:/pet projects/task_tracker/build",
+  "command": "C:\\TDM-GCC-64\\bin\\c++.exe -I\"C:/pet projects/task_tracker/include/nlohmann_json/include\" -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles\\task_tracker.dir\\main.cpp.obj -c \"C:\\pet projects\\task_tracker\\main.cpp\"",
+  "file": "C:\\pet projects\\task_tracker\\main.cpp",
   "output": "CMakeFiles\\task_tracker.dir\\main.cpp.obj"
 }
 ]
