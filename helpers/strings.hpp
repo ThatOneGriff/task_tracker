@@ -10,24 +10,24 @@ const int NAME_LIMIT   = 999,
           STATUS_LIMIT = 11; /// Longest status ('in-progress') is 11 symbols long.
 
 /// Here be:
-bool is_num(const std::string& str);
-void lower(std::string& str);
+bool is_num(const std::wstring& str);
+void lower(std::wstring& str);
 
 
-bool is_num(const std::string& str)
+bool is_num(const std::wstring& str)
 {
-    for (const char& c: str)
+    for (const wchar& c: str)
     {
-        if (c < '0' || c > '9')
+        if (c < L'0' || c > L'9')
             return false;
     }
     return true;
 }
 
 
-void lower(std::string& str)
+void lower(std::wstring& str)
 {
-    for (char& c: str)
+    for (wchar& c: str)
         c = tolower(c);
 }
 

@@ -20,9 +20,11 @@
 - add build instructions to 'readme.md'
 */
 
-/* IDEAS
+/* IDEA-S
 - settings
--'done' auto-deletion => settings
+-'done' auto-delete on closure
+ => settings
+ => close detection
 - storing saved data anywhere => handling absolute paths => make the project fine with moving into different folders
 */
 

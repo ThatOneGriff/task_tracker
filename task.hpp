@@ -12,11 +12,11 @@ using json = nlohmann::json;
 
 
 
-const std::unordered_map<std::string, const int> color_code_by_status =
+const std::unordered_map<std::wstring, const int> color_code_by_status =
 {
-    {"todo",        8}, /* GRAY */
-    {"in-progress", 6}, /* YELLOW */
-    {"done",        2}  /* GREEN */
+    {L"todo",        8}, /* GRAY */
+    {L"in-progress", 6}, /* YELLOW */
+    {L"done",        2}  /* GREEN */
     /// Colors done by 'int's due to new text coloring system.
 };
 
@@ -25,11 +25,11 @@ class Task
 {
 public:
 
-    std::unordered_map<std::string, std::string> updatable_properties =
+    std::unordered_map<std::wstring, std::wstring> updatable_properties =
     {
-        {"name",   ""},
-        {"desc",   ""},
-        {"status", "todo"}
+        {L"name",   L""},
+        {L"desc",   L""},
+        {L"status", L"todo"}
     };
 
     /// Operators = and == are needed for erasing a task out of 'tasks' vector.
@@ -56,32 +56,32 @@ public:
 
 
     /// for console-created tasks
-    Task(const std::string& _name, const std::string& _desc)
+    Task(const std::wstring& _name, const std::wstring& _desc)
     : created_at(get_cur_date_time())
     {
-        updatable_properties["name"] = _name;
-        updatable_properties["desc"] = _desc;
+        updatable_properties[L"name"] = _name;
+        updatable_properties[L"desc"] = _desc;
     }
 
 
     /// for loaded tasks
-    Task(const std::string& _name, const std::string& _desc, const std::string& _status, const std::string& _created_at, const std::string& _updated_at)
+    Task(const std::wstring& _name, const std::wstring& _desc, const std::wstring& _status, const std::wstring& _created_at, const std::wstring& _updated_at)
     : created_at(_created_at), updated_at(_updated_at)
     {
-        updatable_properties["name"] = _name;
-        updatable_properties["desc"] = _desc;
-        updatable_properties["status"] = _status;
+        updatable_properties[L"name"] = _name;
+        updatable_properties[L"desc"] = _desc;
+        updatable_properties[L"status"] = _status;
     }
 
 
     json as_json()
     {
         json data = {
-            {"name", updatable_properties["name"]},
-            {"desc", updatable_properties["desc"]},
-            {"status", updatable_properties["status"]},
-            {"created_at", created_at},
-            {"updated_at", updated_at}
+            {L"name", updatable_properties[L"name"]},
+            {L"desc", updatable_properties[L"desc"]},
+            {L"status", updatable_properties[L"status"]},
+            {L"created_at", created_at},
+            {L"updated_at", updated_at}
         };
         return data;
     }
@@ -89,37 +89,38 @@ public:
 
     void output(const int id)
     {
-        std::cout << "=== "            << updatable_properties["name"]   << " [ID: " << id << "]\n"
-                  <<                      updatable_properties["desc"]   << '\n'
-                  << " - Status: "
-                    << textcolor(color_code_by_status.at(updatable_properties["status"]))
-                    << updatable_properties["status"] << '\n'
-                    << WHITE
-                  << " - Created at: " << created_at  << '\n'
-                  << " - Updated at: " << updated_at;
+        std::wcout << L"=== "           << updatable_properties[L"name"] << L" [ID: " << id << L"]\n"
+                   <<                      updatable_properties[L"desc"] << L'\n'
+                   << L" - Status: "
+                     << textcolor(color_code_by_status.at(updatable_properties[L"status"]))
+                     << updatable_properties[L"status"] << '\n'
+                     << WHITE
+                   << L" - Created at: " << created_at  << '\n'
+                   << L" - Updated at: " << updated_at;
     }
 
 
-    bool update(const std::string& property, std::string& new_value) /// 'update()' also returns whether anything has been updated
+    bool update(const std::wstring& property, std::wstring& new_value) /// 'update()' also returns whether anything has been updated
     {
         if (updatable_properties.find(property) == updatable_properties.end())
         {
-            show_error("Task property '" + property + "' doesn't exist or is not updatable!");
+            show_error(L"Task property '" + property + L"' doesn't exist or is not updatable!");
             return false;
         }
         
         /// value preparation
-        if (property == "name")
+        // IDEA: auto limiting. 'Updatable properties' obj?
+        if (property == L"name")
             new_value = new_value.substr(0, NAME_LIMIT);
-        else if (property == "desc")
+        else if (property == L"desc")
             new_value = new_value.substr(0, DESC_LIMIT);
-        else if (property == "status")
+        else if (property == L"status")
         {
             new_value = new_value.substr(0, STATUS_LIMIT);
             lower(new_value);
             if (color_code_by_status.find(new_value) == color_code_by_status.end())
             {
-                show_error("Invalid status!");
+                show_error(L"Invalid status!");
                 return false;
             }
         }
@@ -127,22 +128,22 @@ public:
         /// checking for false editing
         if (updatable_properties[property] == new_value)
         {
-            show_warning("No changes have taken place: value is the same!");
+            show_warning(L"No changes have taken place: value is the same!");
             return false;
         }
 
         /// updating
         updatable_properties[property] = new_value;
         updated_at = get_cur_date_time();
-        show_info("Update successful!");
+        show_info(L"Update successful!");
         return true;
     }
 
 
 private:
 
-    std::string created_at;
-    std::string updated_at = "-";
+    std::wstring created_at = L"";
+    std::wstring updated_at = L"-";
 };
 
 

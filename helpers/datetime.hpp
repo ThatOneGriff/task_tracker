@@ -7,14 +7,14 @@
 #include <windows.h>
 
 
-std::string get_cur_date_time()
+std::wstring get_cur_date_time()
 {
     auto t = std::time(nullptr);
     auto tm = *std::localtime(&t);
 
     std::ostringstream oss;
-    oss << std::put_time(&tm, "%d.%m.%Y at %H:%M");
-    return oss.str();
+    oss << std::put_time(&tm, L"%d.%m.%Y at %H:%M");
+    return oss.wstr();
 }
 
 
