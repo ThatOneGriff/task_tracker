@@ -12,9 +12,9 @@ std::wstring get_cur_date_time()
     auto t = std::time(nullptr);
     auto tm = *std::localtime(&t);
 
-    std::ostringstream oss;
-    oss << std::put_time(&tm, L"%d.%m.%Y at %H:%M");
-    return oss.wstr();
+    std::wostringstream woss;
+    woss << std::put_time(&tm, L"%d.%m.%Y at %H:%M");
+    return woss.str();
 }
 
 

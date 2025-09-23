@@ -11,15 +11,19 @@
 #include "task.hpp"
 using json = nlohmann::json;
 
+// WARNING: 'json' doesn't take 'wstring' (probably).
 
+// = WARNING =
+// 'std::wstring' breaks (most probably) the filesystem.
+// 'std::string' breaks the error/warning output (could be converted?)
 const std::wstring SAVE_PATH = L"data.json";
 
 
 std::vector<Task> load()
 {
     std::vector<Task> tasks;
-    std::ifstream f(SAVE_PATH);
-    if (f.peek() == std::ifstream::traits_type::eof())
+    std::wifstream f(SAVE_PATH);
+    if (f.peek() == std::wifstream::traits_type::eof())
     {
         show_warning(L"No tasks loaded: data file '" + SAVE_PATH + L"' not found.");
         f.close();
@@ -59,9 +63,9 @@ void save(std::vector<Task>& tasks)
     json data;
     for (Task& task : tasks)
         data.push_back(task.as_json());
-    std::ofstream file(SAVE_PATH);
+    std::wofstream file(SAVE_PATH);
     // WARNING: setw(8)?
-    file << std::setw(4) << data << std::endl;
+    file << std::setw(4) << data << (wchar_t)std::endl;
     file.close();
 }
 

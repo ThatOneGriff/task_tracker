@@ -16,7 +16,7 @@ void lower(std::wstring& str);
 
 bool is_num(const std::wstring& str)
 {
-    for (const wchar& c: str)
+    for (const wchar_t& c: str)
     {
         if (c < L'0' || c > L'9')
             return false;
@@ -27,7 +27,7 @@ bool is_num(const std::wstring& str)
 
 void lower(std::wstring& str)
 {
-    for (wchar& c: str)
+    for (wchar_t& c: str)
         c = tolower(c);
 }
 
