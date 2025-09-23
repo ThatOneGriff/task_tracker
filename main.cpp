@@ -9,7 +9,7 @@
 
 /* TODO
 - delete by full & partial name
-- wstring
+- wwstring
 - dynamic character limiting
 
 - 'delete 1-5'
@@ -32,10 +32,10 @@
 void clean_input();
 void distribute_input();
 
-std::string raw_input;
+std::wstring raw_input;
 
 const unsigned int INPUT_VAR_AMOUNT = 4; /// 1 command, 3 args
-std::string input[INPUT_VAR_AMOUNT];
+std::wstring input[INPUT_VAR_AMOUNT];
 #define command input[0]
 #define arg1    input[1]
 #define arg2    input[2]
@@ -44,7 +44,7 @@ std::string input[INPUT_VAR_AMOUNT];
 
 int main()
 {
-    std::cout << " === Task Tracker (type 'help' to list all commands) === \n\n";
+    std::wcout << L" === Task Tracker (type 'help' to list all commands) === \n\n";
     std::vector<Task> tasks = load();
     
     /// NOTE: minimal ID of a task IN THE INTERFACE is 1,
@@ -53,85 +53,85 @@ int main()
     while(true)
     {
         clean_input();
-        std::cout << "\n\n > ";
-        getline(std::cin, raw_input);
+        std::wcout << L"\n\n > ";
+        getline(std::wcin, raw_input);
         lower(raw_input); /// input has no point in being case-sensitive
         distribute_input();
-        std::cout << '\n';
+        std::wcout << '\n';
 
 
-        if (command == "add")
+        if (command == L"add")
         {
             arg1 = arg1.substr(0, NAME_LIMIT);
             arg2 = arg2.substr(0, DESC_LIMIT);
             Task new_task(arg1, arg2);
             tasks.push_back(new_task);
 
-            show_info("Task created successfully [ID: " + std::to_string(tasks.size()) + "].");
+            show_info(L"Task created successfully [ID: " + std::to_wstring(tasks.size()) + L"].");
         }
 
 
-        else if (command == "delete" || command == "remove")
+        else if (command == L"delete" || command == L"remove")
         {
-            if (arg1 == "all")
+            if (arg1 == L"all")
             {
                 tasks.clear();
-                show_info("All tasks cleared!");
+                show_info(L"All tasks cleared!");
                 continue;
             }
             else if (! is_num(arg1) || stoi(arg1) < 1)
             {
-                show_error("Invalid ID!");
+                show_error(L"Invalid ID!");
                 continue;
             }
             else if (stoi(arg1) > tasks.size())
             {
-                show_warning("No tasks of ID " + arg1 + '!');
+                show_warning(L"No tasks of ID " + arg1 + L'!');
                 continue;
             }
 
             tasks.erase(tasks.begin() + stoi(arg1)-1);
-            show_info("Task deleted successfully!");
+            show_info(L"Task deleted successfully!");
         }
         
 
-        else if (command == "list")
+        else if (command == L"list")
         {
             if (tasks.size() == 0)
             {
-                show_warning("Task list is empty!");
+                show_warning(L"Task list is empty!");
                 continue;
             }
 
             bool output_happened = false;
             for (int i = 0; i < tasks.size(); i++)
             {
-                if ((arg1 == "all") || (tasks[i].updatable_properties["status"] == arg1))
+                if ((arg1 == L"all") || (tasks[i].updatable_properties[L"status"] == arg1))
                 {
                     /// Proper separation of tasks (just in between)
                     if (output_happened)
-                        std::cout << "\n\n";
+                        std::wcout << L"\n\n";
                     output_happened = true;
                     tasks[i].output(i+1);
                 }
             }
 
             if (! output_happened)
-                show_warning("No tasks with such status!");
+                show_warning(L"No tasks with such status!");
             continue;
         }
 
 
-        else if (command == "update")
+        else if (command == L"update")
         {
             if (! is_num(arg2) || stoi(arg2) < 1)
             {
-                show_error("Invalid ID!");
+                show_error(L"Invalid ID!");
                 continue;
             }
             else if (stoi(arg2) > tasks.size())
             {
-                show_warning("No tasks of ID " + arg2 + '!');
+                show_warning(L"No tasks of ID " + arg2 + L'!');
                 continue;
             }
             
@@ -142,21 +142,21 @@ int main()
 
 
         // TODO: check '\n's
-        else if (command == "help")
+        else if (command == L"help")
         {
-            if (arg1 == "")
-                std::cout << HELP_TEXT;
+            if (arg1 == L"")
+                std::wcout << HELP_TEXT;
             else if (DETAILED_HELP.find(arg1) == DETAILED_HELP.end())
-                show_warning("Command '" + arg1 + "' doesn't exist.");
+                show_warning(L"Command '" + arg1 + L"' doesn't exist.");
             else
-                std::cout << DETAILED_HELP.at(arg1);
+                std::wcout << DETAILED_HELP.at(arg1);
             continue;
         }
 
 
         else
         {
-            show_error("Unknown command!");
+            show_error(L"Unknown command!");
             continue;
         }
 
@@ -170,23 +170,23 @@ int main()
 
 void clean_input()
 {
-    std::cin.clear();
+    std::wcin.clear();
     for (int i = 0; i < INPUT_VAR_AMOUNT; i++)
-        input[i] = "";
+        input[i] = L"";
 }
 
 
 
 void distribute_input()
 {
-    std::stringstream input_stream(raw_input);
-    std::string word;
+    std::wstringstream input_stream(raw_input);
+    std::wstring word;
     bool quote_marks_open = false;
     int i = 0;
 
     while (input_stream >> word && i < 4)
     {
-        if (word[0] == '"') /// start of a multi-word argument [MWA]
+        if (word[0] == L'"') /// start of a multi-word argument [MWA]
         {
             quote_marks_open = true;
             input[i] += word.substr(1, word.size() - 1);
@@ -194,8 +194,8 @@ void distribute_input()
         }
 
         if (quote_marks_open)
-            input[i] += ' ' + word;
-        if (word[word.size() - 1] == '"') /// last word in an [MWA] cascades through the previous 'if' to here
+            input[i] += L' ' + word;
+        if (word[word.size() - 1] == L'"') /// last word in an [MWA] cascades through the previous 'if' to here
         {
             quote_marks_open = false;
             input[i] = input[i].substr(0, input[i].size() - 1);
