@@ -9,23 +9,19 @@
 
 #include "helper.hpp"
 #include "task.hpp"
-using json = nlohmann::json;
+using json         = nlohmann::json;
+using json_element = nlohmann::json_abi_v3_11_3::basic_json<>;
 
-// WARNING: 'json' doesn't take 'wstring' (probably).
-
-// = WARNING =
-// 'std::wstring' breaks (most probably) the filesystem.
-// 'std::string' breaks the error/warning output (could be converted?)
-const std::wstring SAVE_PATH = L"data.json";
+const std::string SAVE_PATH = "data.json";
 
 
 std::vector<Task> load()
 {
     std::vector<Task> tasks;
-    std::wifstream f(SAVE_PATH);
+    std::ifstream f(SAVE_PATH);
     if (f.peek() == std::wifstream::traits_type::eof())
     {
-        show_warning(L"No tasks loaded: data file '" + SAVE_PATH + L"' not found.");
+        show_warning(L"No tasks loaded: data file '" + to_wstring(SAVE_PATH) + L"' not found.");
         f.close();
         return tasks;
     }
@@ -34,17 +30,17 @@ std::vector<Task> load()
     f.close();
 
     tasks.reserve(data.size());
-    for (const auto& element: data)
+    for (const json_element element: data)
     {
-        // IDEA: a less fragile load system that avoids errors
-        Task task(element[L"name"], element[L"desc"], element[L"status"], element[L"created_at"], element[L"updated_at"]);
+        // IDEA: a less fragile load system that avoids errors.
+        Task task(element);
         tasks.push_back(task);
     }
 
     switch (tasks.size())
     {
     case 0:
-        show_warning(L"No tasks loaded: data file '" + SAVE_PATH + L"' is empty.");
+        show_warning(L"No tasks loaded: data file '" + to_wstring(SAVE_PATH) + L"' is empty.");
         break;
     case 1:
         std::wcout << L"1 task loaded.";
@@ -63,9 +59,9 @@ void save(std::vector<Task>& tasks)
     json data;
     for (Task& task : tasks)
         data.push_back(task.as_json());
-    std::wofstream file(SAVE_PATH);
-    // WARNING: setw(8)?
-    file << std::setw(4) << data << (wchar_t)std::endl;
+    std::ofstream file(SAVE_PATH);
+    // IDEA: setw(8)?
+    file << std::setw(4) << data << std::endl;
     file.close();
 }
 

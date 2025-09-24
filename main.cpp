@@ -1,4 +1,5 @@
 #include <iostream>
+#include <locale>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -44,6 +45,8 @@ std::wstring input[INPUT_VAR_AMOUNT];
 
 int main()
 {
+    //setlocale(LC_ALL, "Russian");
+
     std::wcout << L" === Task Tracker (type 'help' to list all commands) === \n\n";
     std::vector<Task> tasks = load();
     

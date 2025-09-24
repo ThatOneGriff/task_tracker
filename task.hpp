@@ -8,7 +8,8 @@
 #include <unordered_map>
 
 #include "helper.hpp"
-using json = nlohmann::json;
+using json         = nlohmann::json;
+using json_element = nlohmann::json_abi_v3_11_3::basic_json<>;
 
 
 
@@ -55,7 +56,7 @@ public:
     }
 
 
-    /// for console-created tasks
+    /// For console-created tasks.
     Task(const std::wstring& _name, const std::wstring& _desc)
     : created_at(get_cur_date_time())
     {
@@ -64,24 +65,32 @@ public:
     }
 
 
-    /// for loaded tasks
-    Task(const std::wstring& _name, const std::wstring& _desc, const std::wstring& _status, const std::wstring& _created_at, const std::wstring& _updated_at)
+    /// For loaded tasks. DEPRECATED
+    /*Task(const std::wstring& _name, const std::wstring& _desc, const std::wstring& _status, const std::wstring& _created_at, const std::wstring& _updated_at)
     : created_at(_created_at), updated_at(_updated_at)
     {
         updatable_properties[L"name"] = _name;
         updatable_properties[L"desc"] = _desc;
         updatable_properties[L"status"] = _status;
+    }*/
+
+
+    /// For loaded tasks.
+    Task(const json_element data)
+    {
+        //Task task(element[L"name"], element[L"desc"], element[L"status"], element[L"created_at"], element[L"updated_at"]);
+        
     }
 
 
     json as_json()
     {
         json data = {
-            {L"name", updatable_properties[L"name"]},
-            {L"desc", updatable_properties[L"desc"]},
-            {L"status", updatable_properties[L"status"]},
-            {L"created_at", created_at},
-            {L"updated_at", updated_at}
+            {"name",   to_utf8(updatable_properties[L"name"])},
+            {"desc",   to_utf8(updatable_properties[L"desc"])},
+            {"status", to_utf8(updatable_properties[L"status"])},
+            {"created_at", to_utf8(created_at)},
+            {"updated_at", to_utf8(updated_at)}
         };
         return data;
     }
