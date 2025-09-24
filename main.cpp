@@ -45,7 +45,9 @@ std::wstring input[INPUT_VAR_AMOUNT];
 
 int main()
 {
-    //setlocale(LC_ALL, "Russian");
+    //setlocale(LC_ALL, "Russian"); /// Doesn't work, left in case
+    SetConsoleOutputCP(CP_UTF8);
+    //SetConsoleCP(CP_UTF8);
 
     std::wcout << L" === Task Tracker (type 'help' to list all commands) === \n\n";
     std::vector<Task> tasks = load();
@@ -98,7 +100,7 @@ int main()
         }
         
 
-        else if (command == L"list")
+        else if (command == L"list" || command == L"show")
         {
             if (tasks.size() == 0)
             {

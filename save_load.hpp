@@ -2,8 +2,10 @@
 #ifndef SAVE_LOAD_HPP
 #define SAVE_LOAD_HPP
 
-#include <iostream>
+#include <codecvt> // codecvt_utf8
 #include <fstream>
+#include <iostream>
+#include <locale>  // wstring_convert
 #include <nlohmann/json.hpp>
 #include <vector>
 
@@ -19,9 +21,9 @@ std::vector<Task> load()
 {
     std::vector<Task> tasks;
     std::ifstream f(SAVE_PATH);
-    if (f.peek() == std::wifstream::traits_type::eof())
+    if (f.peek() == std::wifstream::traits_type::eof() || ! f)
     {
-        show_warning(L"No tasks loaded: data file '" + to_wstring(SAVE_PATH) + L"' not found.");
+        show_warning(L"No tasks loaded: data file '" + string_to_wstring(SAVE_PATH) + L"' not found.");
         f.close();
         return tasks;
     }
@@ -40,7 +42,7 @@ std::vector<Task> load()
     switch (tasks.size())
     {
     case 0:
-        show_warning(L"No tasks loaded: data file '" + to_wstring(SAVE_PATH) + L"' is empty.");
+        show_warning(L"No tasks loaded: data file '" + string_to_wstring(SAVE_PATH) + L"' is empty.");
         break;
     case 1:
         std::wcout << L"1 task loaded.";
@@ -56,11 +58,14 @@ std::vector<Task> load()
 
 void save(std::vector<Task>& tasks)
 {
+    //std::cout << wstring_to_utf8(L"привет");
+    //return;
+
     json data;
     for (Task& task : tasks)
         data.push_back(task.as_json());
     std::ofstream file(SAVE_PATH);
-    // IDEA: setw(8)?
+    // IDEA: setw(8)? (used to be 4)
     file << std::setw(4) << data << std::endl;
     file.close();
 }

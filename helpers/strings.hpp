@@ -14,8 +14,9 @@ const int NAME_LIMIT   = 999,
 /// Here be:
 bool is_num(const std::wstring& str);
 void lower(std::wstring& str);
-std::string to_utf8(const std::wstring& target);
-std::wstring to_wstring(const std::string& target);
+std::wstring string_to_wstring(const std::string& target);
+std::wstring utf8_to_wstring(const std::string& target);
+std::string  wstring_to_utf8(const std::wstring& target);
 
 
 bool is_num(const std::wstring& str)
@@ -36,19 +37,28 @@ void lower(std::wstring& str)
 }
 
 
-/// For JSON compatibility.
-/// Copied from: https://json.nlohmann.me/home/faq/#wide-string-handling
-std::string to_utf8(const std::wstring& target)
+/// Baffled how it isn't built-in.
+std::wstring string_to_wstring(const std::string& target)
 {
-    static std::wstring_convert<std::codecvt_utf8<wchar_t>> utf8_conv;
-    return utf8_conv.to_bytes(target);
+    return std::wstring(target.begin(), target.end());
 }
 
 
-/// Baffled how it isn't built-in.
-std::wstring to_wstring(const std::string& target)
+/// For JSON compatibility.
+/// Copied from: https://stackoverflow.com/questions/4358870/convert-wstring-to-string-encoded-in-utf-8
+std::wstring utf8_to_wstring(const std::string& target)
 {
-    return std::wstring(target.begin(), target.end());
+    static std::wstring_convert<std::codecvt_utf8<wchar_t>> utf8_conv;
+    return utf8_conv.from_bytes(target);
+}
+
+
+/// For JSON compatibility.
+/// Copied from: https://json.nlohmann.me/home/faq/#wide-string-handling
+std::string wstring_to_utf8(const std::wstring& target)
+{
+    static std::wstring_convert<std::codecvt_utf8<wchar_t>> utf8_conv;
+    return utf8_conv.to_bytes(target);
 }
 
 

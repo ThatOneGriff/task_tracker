@@ -79,18 +79,23 @@ public:
     Task(const json_element data)
     {
         //Task task(element[L"name"], element[L"desc"], element[L"status"], element[L"created_at"], element[L"updated_at"]);
+        updatable_properties[L"name"]   = utf8_to_wstring((std::string)data["name"]);
+        updatable_properties[L"desc"]   = utf8_to_wstring((std::string)data["desc"]);
+        updatable_properties[L"status"] = utf8_to_wstring((std::string)data["status"]);
         
+        created_at = utf8_to_wstring((std::string)data["created_at"]);
+        updated_at = utf8_to_wstring((std::string)data["updated_at"]);
     }
 
 
     json as_json()
     {
         json data = {
-            {"name",   to_utf8(updatable_properties[L"name"])},
-            {"desc",   to_utf8(updatable_properties[L"desc"])},
-            {"status", to_utf8(updatable_properties[L"status"])},
-            {"created_at", to_utf8(created_at)},
-            {"updated_at", to_utf8(updated_at)}
+            {"name",   wstring_to_utf8(updatable_properties[L"name"])},
+            {"desc",   wstring_to_utf8(updatable_properties[L"desc"])},
+            {"status", wstring_to_utf8(updatable_properties[L"status"])},
+            {"created_at", wstring_to_utf8(created_at)},
+            {"updated_at", wstring_to_utf8(updated_at)}
         };
         return data;
     }

@@ -15,7 +15,7 @@ const std::wstring HELP_TEXT =
     + L'\n'
     + L" - add [name] ~[desc] \n"
     + L" - delete/remove [ID] \n"
-    + L" - list [status] \n"
+    + L" - list/show [status] \n"
     + L" - update [property] [ID] [value] \n"
     + L'\n'
     + L"Inquire about usage of commands using help ~[command name]. \n"
@@ -53,6 +53,12 @@ const std::unordered_map<std::wstring, std::wstring> DETAILED_HELP = {
                            + L'\n'
                            + L"- Arg 1: [status] - 'todo'/'in-progress'/'done' | 'all' - lists all tasks. \n"
                            + L"Example: 'list in-progress'"
+    },
+    {
+        L"show", (std::wstring)L"Lists tasks of a status. \n"
+                           + L'\n'
+                           + L"- Arg 1: [status] - 'todo'/'in-progress'/'done' | 'all' - lists all tasks. \n"
+                           + L"Example: 'show in-progress'"
     },
     {
         L"update", (std::wstring)L"Updates a property of a task. \n"
