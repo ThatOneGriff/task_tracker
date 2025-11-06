@@ -7,11 +7,16 @@
 #include "helper.hpp"
 #include "save_load.hpp"
 
+/*
+g++ main.cpp -o main.exe
+*/
+
 
 /* TODO
-- delete by full & partial name
-- wwstring
+- [?] Update JSON lib
+- wstring
 - dynamic character limiting
+- delete by full & partial name
 
 - 'delete 1-5'
 - loading system that can handle invalid files
